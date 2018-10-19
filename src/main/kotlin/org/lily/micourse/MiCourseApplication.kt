@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class MicourseApplication
+class MiCourseApplication
 
 fun main(args: Array<String>) {
-    runApplication<MicourseApplication>(*args)
+    runApplication<MiCourseApplication>(*args)
 }
