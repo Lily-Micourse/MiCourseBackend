@@ -9,3 +9,4 @@ class MiCourseApplication
 fun main(args: Array<String>) {
     runApplication<MiCourseApplication>(*args)
 }
+
