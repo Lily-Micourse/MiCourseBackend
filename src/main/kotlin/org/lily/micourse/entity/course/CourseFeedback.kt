@@ -19,7 +19,7 @@ data class CourseFeedback(
 
         val userId: Int,
 
-        val level: Int,
+        val rate: Int,
 
         @Enumerated(value = EnumType.ORDINAL)
         val pressure: CoursePressure,
@@ -39,19 +39,23 @@ data class CourseFeedback(
         val evalOthers: Boolean,
 
         @Enumerated(value = EnumType.ORDINAL)
-        val checkInFrequence: CheckInFrequence
+        val checkInFrequency: CheckInFrequency
 )
 
-enum class CoursePressure {
-    LOW,
-    MEDIUM,
-    HIGH
+enum class CoursePressure(private val frontEndName: String) {
+    LOW("low"),
+    MEDIUM("medium"),
+    HIGH("high");
+
+    override fun toString(): String = frontEndName
 }
 
-enum class CheckInFrequence {
-    NEVER,
-    ONCE,
-    TWICE,
-    LESS_THAN_FIVE,
-    MORE_THAN_FIVE
+enum class CheckInFrequency(private val frontEndName: String) {
+    NEVER("never"),
+    ONCE("once"),
+    TWICE("twice"),
+    LESS_THAN_FIVE("lessThanFive"),
+    MORE_THAN_FIVE("moreThanFive");
+
+    override fun toString(): String = frontEndName
 }
