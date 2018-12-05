@@ -42,4 +42,5 @@ class AuthenticationController {
 
     @GetMapping("/user/login")
     fun login(username: String, password: String): String = "test"
+
 }
