@@ -13,9 +13,9 @@ import javax.persistence.Id
 
 @Entity
 data class CourseDepartment(
-        val name: String,
+    val name: String,
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Int = -1
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int = -1
 )
