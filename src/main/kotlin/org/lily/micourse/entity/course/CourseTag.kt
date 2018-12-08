@@ -11,6 +11,7 @@ import javax.persistence.*
 
 @Table
 @Entity
+@Deprecated(message = "必须人工参与")
 data class CourseTagSet (
 
         @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +23,7 @@ data class CourseTagSet (
 
 @Table
 @Entity
+@Deprecated(message = "必须人工参与")
 data class CourseTag (
 
         @GeneratedValue(strategy = GenerationType.AUTO)

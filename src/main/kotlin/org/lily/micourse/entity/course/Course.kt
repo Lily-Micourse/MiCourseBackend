@@ -29,5 +29,7 @@ data class Course (
 
         val courseDepartmentId: Int,
 
-        val description: String
+        val description: String,
+
+        val commentAmount: Int
 )
