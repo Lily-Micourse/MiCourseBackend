@@ -41,7 +41,7 @@ class CourseService(
     }
 
     private fun getCourseVO(id: Int): CourseVO {
-
+        return CourseVO(-1, "", "", -1, 1.0f, 1)
     }
 
     private fun genPressureIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {

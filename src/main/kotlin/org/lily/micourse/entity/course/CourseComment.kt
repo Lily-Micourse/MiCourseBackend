@@ -1,6 +1,7 @@
 package org.lily.micourse.entity.course
 
 import java.sql.Timestamp
+import java.util.*
 import javax.persistence.*
 
 /**
@@ -29,7 +30,7 @@ data class CourseComment (
         val content: String,
 
         @Temporal(TemporalType.TIMESTAMP)
-        val addTime: Timestamp,
+        val addTime: Date,
 
         val semester: String
 
@@ -40,6 +41,7 @@ data class CourseComment (
 data class CourseSubComment (
 
         @GeneratedValue(strategy = GenerationType.AUTO)
+        @Id
         val id: Int,
 
         val commentId: Int,
@@ -55,6 +57,6 @@ data class CourseSubComment (
         val content: String,
 
         @Temporal(TemporalType.TIMESTAMP)
-        val addTime: Timestamp
+        val addTime: Date
 
 )

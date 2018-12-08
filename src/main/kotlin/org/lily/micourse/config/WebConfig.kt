@@ -11,9 +11,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  * Description:
  */
 
+const val MAX_AGE_SECS = 3600L
+
 @Configuration
 class WebConfig: WebMvcConfigurer {
+
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
+            .allowedOrigins("*")
+            .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
+            .maxAge(MAX_AGE_SECS)
     }
 }

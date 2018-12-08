@@ -31,4 +31,4 @@ data class UserRegistration(
     val password: String?
 )
 
-class TokenResponse(val token: String)
+data class TokenResponse(val token: String, val tokenType: String)

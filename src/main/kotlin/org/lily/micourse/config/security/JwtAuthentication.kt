@@ -18,9 +18,7 @@ import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
-import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
-import java.time.LocalDateTime
 import java.util.*
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
@@ -41,6 +39,7 @@ class JwtAuthenticationEntryPoint : AuthenticationEntryPoint {
     }
 }
 
+@Component
 class JwtAuthenticationFilter : OncePerRequestFilter() {
 
     @Autowired
@@ -55,7 +54,13 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
         filterChain: FilterChain
     ) {
         // Get jwt from request
-        val header: String = request.getHeader("Authorization")
+        val header = request.getHeader("Authorization")
+
+        if (header == null) {
+            filterChain.doFilter(request, response)
+            return
+        }
+
         val token = jwtTokenProvider.getJwtFromRequestHeader(header)!!
 
         if (jwtTokenProvider.validateToken(token)) {
@@ -69,6 +74,7 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
                 SecurityContextHolder.getContext().authentication = authentication
 
             } catch (e: Exception) {
+                logger.error("Could not set user authentication in security context", e)
                 SecurityContextHolder.clearContext()
             }
         }
@@ -81,41 +87,44 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
 @Component
 class JwtTokenProvider {
     @Value("\${jwt.secret:JwtSecretKey}")
-    private lateinit var _secret: String
+    private lateinit var secret: String
 
     @Value("\${jwt.expiration:1800}")
-    private var _expiration: Int? = null
+    private var expiration: Int? = null
 
     @Value("\${jwt.prefix:Bearer}")
-    private lateinit var _prefix: String
+    private lateinit var prefix: String
+
+    val tokenType: String
+        get() = prefix
 
     fun getJwtFromRequestHeader(bearerToken: String): String? {
-        if (bearerToken.isNotBlank() && bearerToken.startsWith(_prefix))
-            return bearerToken.substring(_prefix.length).trim()
+        if (bearerToken.isNotBlank() && bearerToken.startsWith(prefix))
+            return bearerToken.substring(prefix.length).trim()
 
         return null
     }
 
     fun getNameFromToken(token: String): String =
-        Jwts.parser().setSigningKey(_secret).parseClaimsJws(token).body.subject
+        Jwts.parser().setSigningKey(secret).parseClaimsJws(token).body.subject
 
     fun generateToken(authentication: Authentication): String {
-        val idUserDetails = authentication.principal as IdUserDetails
+        val idUserDetails = authentication.principal as UserPrincipal
 
-        val expirationDate = Date(Date().time + _expiration!! * 1000)
+        val expirationDate = Date(Date().time + expiration!! * 1000)
 
         return Jwts.builder()
-            .setSubject(idUserDetails.id.toString())
+            .setSubject(idUserDetails.username)
             .setIssuedAt(Date())
             .setExpiration(expirationDate)
-            .signWith(SignatureAlgorithm.HS512, _secret)
+            .signWith(SignatureAlgorithm.HS512, secret)
             .compact()
     }
 
     fun validateToken(token: String): Boolean {
 
         try {
-            Jwts.parser().setSigningKey(_secret).parseClaimsJws(token)
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(token)
             return true
         } catch (ex: SignatureException) {
             logger.error("Invalid JWT signature");
@@ -142,15 +151,15 @@ class UserPrincipalService : UserDetailsService {
         val user = userRepository.findByRegisterEmail(registration)
             ?: throw UsernameNotFoundException("Registration email $registration not found")
 
-        return IdUserDetails(user)
+        return UserPrincipal(user)
     }
 }
 
-class IdUserDetails(user: User) : UserDetails {
+class UserPrincipal(user: User) : UserDetails {
 
     val id = user.id
 
-    val registrationEmail = user.registerEmail
+    private val registrationEmail = user.registerEmail
 
     private val pwd = user.password
 
@@ -166,7 +175,7 @@ class IdUserDetails(user: User) : UserDetails {
     }
 
     override fun getUsername(): String {
-        return id.toString()
+        return registrationEmail
     }
 
     override fun isCredentialsNonExpired(): Boolean {
@@ -182,11 +191,11 @@ class IdUserDetails(user: User) : UserDetails {
     }
 
     override fun isAccountNonLocked(): Boolean {
-        return banned
+        return !banned
     }
 
     override fun toString(): String {
-        return "IdUserDetails(id=$id, registrationEmail='$registrationEmail', pwd='$pwd', banned=$banned)"
+        return "UserPrincipal(id=$id, registrationEmail='$registrationEmail', pwd='$pwd', banned=$banned)"
     }
 
 

@@ -3,7 +3,7 @@ package org.lily.micourse.controller
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
-import org.lily.micourse.config.security.IdUserDetails
+import org.lily.micourse.config.security.UserPrincipal
 import org.lily.micourse.config.security.JwtTokenProvider
 import org.lily.micourse.exception.DuplicateException
 import org.lily.micourse.services.UserService
@@ -17,6 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
+import java.security.Principal
 import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
 
@@ -68,11 +69,6 @@ class AuthenticationController {
         SecurityContextHolder.getContext().authentication = authentication
 
         // generate jwt token and return to front-end
-        return TokenResponse(jwtTokenProvider.generateToken(authentication))
-    }
-
-    @GetMapping("/user/test")
-    fun test(@AuthenticationPrincipal userDetails: IdUserDetails) {
-        print(userDetails)
+        return TokenResponse(jwtTokenProvider.generateToken(authentication), jwtTokenProvider.tokenType)
     }
 }

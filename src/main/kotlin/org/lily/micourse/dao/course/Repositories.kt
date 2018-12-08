@@ -46,7 +46,7 @@ interface CourseDepartmentRepository: JpaRepository<CourseDepartment, Int> {
     fun getDepartmentNames(): List<String>
 }
 
-interface CourseFeedbackRepository: JpaRepository<CourseFeedbackRepository, Int> {
+interface CourseFeedbackRepository: JpaRepository<CourseFeedback, Int> {
 
     fun findByCourseId(courseId: Int): List<CourseFeedback>
 }

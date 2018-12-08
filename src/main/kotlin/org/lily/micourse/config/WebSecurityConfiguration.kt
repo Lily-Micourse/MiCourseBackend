@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
@@ -31,6 +30,9 @@ class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     @Autowired
     private lateinit var userDetailsService: UserPrincipalService
 
+    @Autowired
+    private lateinit var jwtAuthenticationFilter: JwtAuthenticationFilter
+
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth!!.userDetailsService(userDetailsService)
@@ -46,7 +48,7 @@ class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
             .exceptionHandling()
             .authenticationEntryPoint(unauthorizedHandler())
             .and()
-            .addFilterBefore(JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
@@ -58,9 +60,6 @@ class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
-
-    @Bean
-    fun jwtAuthenticationFilter(): JwtAuthenticationFilter = JwtAuthenticationFilter()
 
     @Bean
     fun unauthorizedHandler(): JwtAuthenticationEntryPoint = JwtAuthenticationEntryPoint()

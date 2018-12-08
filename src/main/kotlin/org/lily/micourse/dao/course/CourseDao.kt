@@ -5,6 +5,7 @@ import org.lily.micourse.services.course.CourseRankingType
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.stereotype.Repository
 import java.util.stream.Collectors
 
 /**
@@ -13,7 +14,7 @@ import java.util.stream.Collectors
  * @author iznauy
  */
 
-
+@Repository
 class CourseDao (
 
         @Autowired
