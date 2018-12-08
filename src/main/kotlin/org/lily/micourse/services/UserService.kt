@@ -2,7 +2,7 @@ package org.lily.micourse.services
 
 import org.lily.micourse.dao.user.UserRepository
 import org.lily.micourse.entity.user.User
-import org.lily.micourse.vo.UserRegistration
+import org.lily.micourse.vo.authentication.UserRegistration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service

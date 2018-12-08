@@ -1,13 +1,26 @@
-package org.lily.micourse.vo
+package org.lily.micourse.vo.authentication
 
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
 /**
  * Author: J.D. Liao
- * Date: 2018/12/5
+ * Date: 2018/12/8
  * Description:
  */
+/**
+ * Author: J.D. Liao
+ * Date: 2018/12/8
+ * Description:
+ */
+
+class LoginRequest(
+    @field:NotBlank(message = "username is empty")
+    val username: String,
+
+    @field:NotBlank(message = "password is empty")
+    val password: String
+)
 
 data class UserRegistration(
     @field:Email(message = "email not valid")
@@ -17,3 +30,5 @@ data class UserRegistration(
     @field:NotBlank(message = "empty password")
     val password: String?
 )
+
+class TokenResponse(val token: String)

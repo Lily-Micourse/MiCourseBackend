@@ -3,10 +3,18 @@ package org.lily.micourse.controller
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
+import org.lily.micourse.config.security.IdUserDetails
+import org.lily.micourse.config.security.JwtTokenProvider
 import org.lily.micourse.exception.DuplicateException
 import org.lily.micourse.services.UserService
-import org.lily.micourse.vo.UserRegistration
+import org.lily.micourse.vo.authentication.LoginRequest
+import org.lily.micourse.vo.authentication.TokenResponse
+import org.lily.micourse.vo.authentication.UserRegistration
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
@@ -23,6 +31,12 @@ class AuthenticationController {
 
     @Autowired
     private lateinit var userService: UserService
+
+    @Autowired
+    private lateinit var jwtTokenProvider: JwtTokenProvider
+
+    @Autowired
+    private lateinit var authenticationManager: AuthenticationManager
 
     @GetMapping("/user/signup")
     @ApiOperation(value = "register a new user", notes = "verify the user and return a token")
@@ -41,6 +55,24 @@ class AuthenticationController {
     }
 
     @GetMapping("/user/login")
-    fun login(username: String, password: String): String = "test"
+    fun login(@Valid loginRequest: LoginRequest): TokenResponse {
 
+        val authentication = authenticationManager.authenticate(
+            UsernamePasswordAuthenticationToken(
+                loginRequest.username,
+                loginRequest.password
+            )
+        )
+
+        // set security context
+        SecurityContextHolder.getContext().authentication = authentication
+
+        // generate jwt token and return to front-end
+        return TokenResponse(jwtTokenProvider.generateToken(authentication))
+    }
+
+    @GetMapping("/user/test")
+    fun test(@AuthenticationPrincipal userDetails: IdUserDetails) {
+        print(userDetails)
+    }
 }

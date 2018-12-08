@@ -1,9 +1,6 @@
 package org.lily.micourse.entity.course
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Table
+import javax.persistence.*
 
 /**
  * Created on 11/11/2018.
@@ -15,6 +12,7 @@ import javax.persistence.Table
 data class CourseDepartment(
 
         @GeneratedValue(strategy = GenerationType.AUTO)
+        @Id
         val id: Int,
 
         val name: String

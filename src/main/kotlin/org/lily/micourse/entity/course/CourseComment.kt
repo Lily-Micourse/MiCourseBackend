@@ -13,6 +13,7 @@ import javax.persistence.*
 data class CourseComment (
 
         @GeneratedValue(strategy = GenerationType.AUTO)
+        @Id
         val id: Int,
 
         val courseId: Int,
