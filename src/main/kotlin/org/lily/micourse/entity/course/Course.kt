@@ -1,9 +1,6 @@
 package org.lily.micourse.entity.course
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Table
+import javax.persistence.*
 
 /**
  * Created on 11/11/2018.
@@ -14,6 +11,8 @@ import javax.persistence.Table
 @Entity
 @Table
 data class Course (
+
+        @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Int,
 
@@ -27,11 +26,13 @@ data class Course (
 
         val teacher: String,
 
-        val courseCategoryId: Int,
+        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER)
+        @JoinColumn(name = "courseCategoryId")
+        val courseCategory: CourseCategory,
 
-        val courseDepartmentId: Int,
+        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER)
+        @JoinColumn(name = "courseDepartmentId")
+        val courseDepartment: CourseDepartment,
 
-        val description: String,
-
-        val commentAmount: Int
+        val description: String
 )

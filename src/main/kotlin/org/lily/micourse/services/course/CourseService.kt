@@ -40,9 +40,20 @@ class CourseService(
         return LabelListVO(creditLabels, departmentLabels, courseCategoryLabels)
     }
 
+    /**
+     * 残疾的VO，里面的rate设置为0, commentNum设置为0
+     */
     private fun getCourseVO(id: Int): CourseVO {
-
+        var courseOpt = courseDao.getCourseById(id)
+        if (courseOpt.isPresent) {
+            var course = courseOpt.get()
+            return CourseVO(id, )
+        }
+        return null
     }
+
+    private fun calcCourseRate(courseFeedbacks: List<CourseFeedback>) =
+            courseFeedbacks.stream().map { it.rate }.collect(Collectors.averagingDouble {it + 0.0})
 
     private fun genPressureIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {
         val pressureIndexes: MutableMap<String, Int> = mutableMapOf()

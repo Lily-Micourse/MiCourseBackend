@@ -18,6 +18,8 @@ data class CourseVO (
 
         val rate: Float,
 
-        val commentNum: Int
+        val commentNum: Int,
+
+        val labels: List<String>
 
 )
