@@ -2,6 +2,8 @@ package org.lily.micourse.dao.course
 
 import org.lily.micourse.entity.course.Course
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Repository
 import java.util.*
 import java.util.stream.Collectors
@@ -25,5 +27,8 @@ class CourseDao (
     fun getCourseById(id: Int): Optional<Course> =
             courseRepository.findById(id)
 
+    fun getCourseList(sort: Sort, page: PageRequest): List<Course> {
+        courseRepository.findAll()
+    }
 
 }

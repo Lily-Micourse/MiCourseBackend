@@ -20,6 +20,8 @@ data class CourseVO (
 
         val commentNum: Int,
 
-        val labels: List<String>
+        val department: String,
+
+        val category: String
 
 )

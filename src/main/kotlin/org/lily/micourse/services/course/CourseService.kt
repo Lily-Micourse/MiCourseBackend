@@ -40,6 +40,10 @@ class CourseService(
         return LabelListVO(creditLabels, departmentLabels, courseCategoryLabels)
     }
 
+    fun getCourseList(rankingType: CourseRankingType, page: Int, pageSize: Int) {
+        courseDao.
+    }
+
     /**
      * 残疾的VO，里面的rate设置为0, commentNum设置为0
      */
@@ -47,7 +51,7 @@ class CourseService(
         var courseOpt = courseDao.getCourseById(id)
         if (courseOpt.isPresent) {
             var course = courseOpt.get()
-            return CourseVO(id, )
+            return CourseVO(id, course.courseName, course.courseIcon, course.)
         }
         return null
     }
@@ -55,18 +59,9 @@ class CourseService(
     private fun calcCourseRate(courseFeedbacks: List<CourseFeedback>) =
             courseFeedbacks.stream().map { it.rate }.collect(Collectors.averagingDouble {it + 0.0})
 
-    private fun genPressureIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {
-        val pressureIndexes: MutableMap<String, Int> = mutableMapOf()
-        for (courseFeedback: CourseFeedback in courseFeedbacks) {
-            val key = courseFeedback.pressure.toString()
-            val current = pressureIndexes.getOrDefault(key, 0)
-            if (current == 0)
-                pressureIndexes[key] = 1
-            else
-                pressureIndexes[key] = current + 1
-        }
-        return pressureIndexes
-    }
+    private fun genPressureIndexes(courseFeedbacks: List<CourseFeedback>) = courseFeedbacks
+                .groupBy { it.pressure }.mapValues { it.value.size }
+
 
     private fun genExamineIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {
 
@@ -121,18 +116,8 @@ class CourseService(
         )
     }
 
-    private fun genCheckInIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {
-        val checkInIndexes: MutableMap<String, Int> = mutableMapOf()
-        for (courseFeedback: CourseFeedback in courseFeedbacks) {
-            val key = courseFeedback.checkInFrequency.toString()
-            val current = checkInIndexes.getOrDefault(key, 0)
-            if (current == 0)
-                checkInIndexes[key] = 1
-            else
-                checkInIndexes[key] = current + 1
-        }
-        return checkInIndexes
-    }
+    private fun genCheckInIndexes(courseFeedbacks: List<CourseFeedback>) = courseFeedbacks.
+                groupBy { it.checkInFrequency.toString() }.mapValues { it.value.size }
 
     fun getCourseDetailVO(id: Int): CourseDetailVO {
         val courseVO = getCourseVO(id)

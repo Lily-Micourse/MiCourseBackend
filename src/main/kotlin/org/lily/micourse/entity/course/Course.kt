@@ -34,5 +34,7 @@ data class Course (
         @JoinColumn(name = "courseDepartmentId")
         val courseDepartment: CourseDepartment,
 
-        val description: String
+        val description: String,
+
+        val commentNum: Int
 )
