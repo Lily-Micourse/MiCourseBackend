@@ -9,6 +9,13 @@ import javax.persistence.*
  * @author iznauy
  */
 
+data class CourseRate(
+
+        val id: Int,
+
+        val count: Long
+)
+
 @Entity
 @Table
 data class CourseFeedback(

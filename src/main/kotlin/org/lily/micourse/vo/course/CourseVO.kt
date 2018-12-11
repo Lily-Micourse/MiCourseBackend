@@ -1,5 +1,7 @@
 package org.lily.micourse.vo.course
 
+import org.lily.micourse.entity.course.Course
+
 /**
  * Created on 11/11/2018.
  * Description:
@@ -24,4 +26,5 @@ data class CourseVO (
 
         val category: String
 
-)
+) {
+}

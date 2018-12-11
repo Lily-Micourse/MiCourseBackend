@@ -27,13 +27,20 @@ interface CourseCategoryRepository: JpaRepository<CourseCategory, Int> {
 
 }
 
+@Repository
 interface CourseDepartmentRepository: JpaRepository<CourseDepartment, Int> {
 
     @Query("select c.name from course_department c", nativeQuery = true)
     fun getDepartmentNames(): List<String>
 }
 
+@Repository
 interface CourseFeedbackRepository: JpaRepository<CourseFeedbackRepository, Int> {
 
     fun findByCourseId(courseId: Int): List<CourseFeedback>
+
+    fun 
 }
+
+@Repository
+interface CourseTermRepository: JpaRepository<CourseTerm, Int>
