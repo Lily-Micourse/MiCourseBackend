@@ -24,5 +24,4 @@ data class CourseVO (
 
         val category: String
 
-) {
-}
+)

@@ -1,5 +1,8 @@
 package org.lily.micourse.po.course
 
+import org.lily.micourse.entity.course.CheckInFrequency
+import org.lily.micourse.entity.course.CoursePressure
+import org.lily.micourse.entity.course.Score
 import org.lily.micourse.po.user.User
 import javax.persistence.*
 
@@ -29,7 +32,7 @@ data class CourseFeedback(
         @Enumerated(value = EnumType.ORDINAL)
         val pressure: CoursePressure,
 
-        val score: Int,
+        val score: Score,
 
         val evalPaper: Boolean,
 

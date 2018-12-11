@@ -15,7 +15,7 @@ import javax.persistence.criteria.Predicate
  */
 
 @Repository
-class CourseDao (
+class CourseDAO(
 
         @Autowired
         var courseRepository: CourseRepository) {

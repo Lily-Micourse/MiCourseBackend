@@ -21,6 +21,11 @@ class CourseCommentDAO (
 
 ) {
 
+    fun addComment(comment: CourseComment) = courseCommentRepository.save(comment)
+
+    fun getCommentById(courseCommentId: Int)
+            = courseCommentRepository.findById(courseCommentId)
+
     fun getCommentList(courseId: Int) : List<CourseComment> {
         return courseCommentRepository.findAll { p0, p1, p2 ->
             p1.where(p2.equal(p0.get<Course>("course").get<Int>("id"), courseId))
@@ -29,6 +34,6 @@ class CourseCommentDAO (
     }
 
     private fun getCommentByCommentId(id: Int)
-            = courseCommentRepository.findById(id).orElse(null)
+            = courseCommentRepository.findById(id)
 
 }

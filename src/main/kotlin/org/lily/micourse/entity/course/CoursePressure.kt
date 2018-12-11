@@ -1,4 +1,4 @@
-package org.lily.micourse.po.course
+package org.lily.micourse.entity.course
 
 /**
  * Created on 11/12/2018.

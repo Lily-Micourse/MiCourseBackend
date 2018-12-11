@@ -1,13 +1,15 @@
 package org.lily.micourse.vo.course
 
 /**
- * Created on 05/12/2018.
+ * Created on 11/12/2018.
  * Description:
  * @author iznauy
  */
-data class CommentVO(
+data class SubCommentVO(
 
         val id: Int,
+
+        val replyToCommentId: Int, // 根评论id
 
         val userId: Int,
 
@@ -19,11 +21,7 @@ data class CommentVO(
 
         val content: String,
 
-        val time: String,
-
-        val term: String,
-
-        val comments: List<SubCommentVO>,
+        val subComments: List<SubCommentVO>,
 
         val agree: Int,
 

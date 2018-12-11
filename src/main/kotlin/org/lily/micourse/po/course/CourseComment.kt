@@ -1,7 +1,9 @@
 package org.lily.micourse.po.course
 
 import org.lily.micourse.po.user.User
-import java.sql.Timestamp
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.util.*
 import javax.persistence.*
 
 /**
@@ -10,6 +12,7 @@ import javax.persistence.*
  * @author iznauy
  */
 @Entity
+@EntityListeners(value = [(AuditingEntityListener::class)])
 @Table(name = "course_comment")
 data class CourseComment (
 
@@ -30,7 +33,8 @@ data class CourseComment (
         val content: String,
 
         @Temporal(TemporalType.TIMESTAMP)
-        val addTime: Timestamp,
+        @CreatedDate
+        val addTime: Date = Date(),
 
         val semester: String, // 我觉得偶尔偷懒也没什么
         // 偷懒是不会被发现的！嗯！

@@ -1,7 +1,10 @@
 package org.lily.micourse.services.course
 
 import org.lily.micourse.entity.ResultMessage
+import org.lily.micourse.entity.course.CheckInFrequency
 import org.lily.micourse.entity.course.CommentVotingType
+import org.lily.micourse.entity.course.CoursePressure
+import org.lily.micourse.entity.course.Score
 import org.lily.micourse.vo.course.CourseCommentVO
 import org.springframework.stereotype.Service
 
@@ -47,5 +50,12 @@ interface CourseCommentService {
      * 对子评论进行👍|踩
      */
     fun votingSubComment(userId: Int, commentId: Int, subCommentId: Int, commentVotingType: CommentVotingType) : ResultMessage
+
+    /**
+     * 对课程进行反馈
+     */
+    fun addFeedBack(userId: Int, rate: Int, pressure: CoursePressure,
+                    score: Score, examineMethods: List<String>, checkInFrequency: CheckInFrequency,
+                    content: String?, term: String): ResultMessage
 
 }
