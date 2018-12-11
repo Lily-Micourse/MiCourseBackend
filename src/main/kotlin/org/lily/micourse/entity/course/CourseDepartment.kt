@@ -13,7 +13,7 @@ data class CourseDepartment(
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Int,
+        val id: Int = -1,
 
-        val name: String
+        val name: String = ""
 )

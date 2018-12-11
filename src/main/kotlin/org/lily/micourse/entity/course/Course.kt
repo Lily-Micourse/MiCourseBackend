@@ -14,7 +14,7 @@ data class Course (
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Int,
+        val id: Int = -1,
 
         val courseIcon: String,
 

@@ -3,17 +3,20 @@ package org.lily.micourse.entity.course
 import javax.persistence.*
 
 /**
- * Created on 11/11/2018.
+ * Created on 11/12/2018.
  * Description:
  * @author iznauy
  */
-@Entity
 @Table
-data class CourseCategory (
+@Entity
+data class CourseCommentVote (
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Int = -1,
+        var id: Int = -1,
 
-        val name: String = ""
+        val userId: Int = -1,
+
+        val commentId: Int = -1
+
 )

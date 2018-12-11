@@ -35,12 +35,12 @@ data class User(
 
         val password: String,
 
-        val addIp: String,
+        val addIp: String  = "",
 
-        val portraitUrl: String,
+        val portraitUrl: String = "",
 
         @Column(name = "user_name")
-        val username: String,
+        val username: String = "",
 
         val schoolDepartmentId: Int = 0,
 

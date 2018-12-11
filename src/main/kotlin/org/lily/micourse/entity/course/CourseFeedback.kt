@@ -8,14 +8,6 @@ import javax.persistence.*
  * Description:
  * @author iznauy
  */
-
-data class CourseRate(
-
-        val id: Int,
-
-        val count: Long
-)
-
 @Entity
 @Table
 data class CourseFeedback(
@@ -55,20 +47,5 @@ data class CourseFeedback(
         val checkInFrequency: CheckInFrequency
 )
 
-enum class CoursePressure(private val frontEndName: String) {
-    LOW("low"),
-    MEDIUM("medium"),
-    HIGH("high");
 
-    override fun toString(): String = frontEndName
-}
 
-enum class CheckInFrequency(private val frontEndName: String) {
-    NEVER("never"),
-    ONCE("once"),
-    TWICE("twice"),
-    LESS_THAN_FIVE("lessThanFive"),
-    MORE_THAN_FIVE("moreThanFive");
-
-    override fun toString(): String = frontEndName
-}
