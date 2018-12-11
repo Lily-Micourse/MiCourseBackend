@@ -11,6 +11,8 @@ import javax.persistence.*
 @Entity
 @Table
 data class Course (
+
+        @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Id
         val id: Int,
@@ -25,11 +27,14 @@ data class Course (
 
         val teacher: String,
 
-        val courseCategoryId: Int,
+        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER)
+        @JoinColumn(name = "courseCategoryId")
+        val courseCategory: CourseCategory,
 
-        val courseDepartmentId: Int,
+        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER)
+        @JoinColumn(name = "courseDepartmentId")
+        val courseDepartment: CourseDepartment,
 
-        val description: String,
+        val description: String
 
-        val commentAmount: Int
 )

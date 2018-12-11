@@ -11,6 +11,7 @@ import javax.persistence.*
 @Table
 data class CourseDepartment(
 
+        @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Id
         val id: Int,
