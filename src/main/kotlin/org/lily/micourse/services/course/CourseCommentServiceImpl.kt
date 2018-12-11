@@ -65,7 +65,8 @@ class CourseCommentServiceImpl(
             return ResultMessage(409, "用户不存在")
         val subComment = CourseSubComment(courseComment = comment, replyToSubCommentId = subCommentId,
                 content = content, user = user)
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        courseCommentDAO.addSubComment(subComment)
+        return ResultMessage(200, "成功")
     }
 
     override fun cancelCommentVoting(userId: Int, commentId: Int): ResultMessage {

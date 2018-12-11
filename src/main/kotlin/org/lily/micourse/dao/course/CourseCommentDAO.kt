@@ -2,6 +2,7 @@ package org.lily.micourse.dao.course
 
 import org.lily.micourse.po.course.Course
 import org.lily.micourse.po.course.CourseComment
+import org.lily.micourse.po.course.CourseSubComment
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
@@ -22,6 +23,8 @@ class CourseCommentDAO (
 ) {
 
     fun addComment(comment: CourseComment) = courseCommentRepository.save(comment)
+
+    fun addSubComment(subComment: CourseSubComment) = courseSubCommentRepository.save(subComment)
 
     fun getCommentById(courseCommentId: Int)
             = courseCommentRepository.findById(courseCommentId)

@@ -28,7 +28,7 @@ data class CourseComment (
         @JoinColumn(name = "userId")
         val user: User,
 
-        var deleted: Boolean,
+        var deleted: Boolean = false,
 
         val content: String,
 

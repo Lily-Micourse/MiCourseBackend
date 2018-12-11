@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface CourseCommentVoteRepository : JpaRepository<CourseCommentVote, Int> {
+
+    fun findByUserIdAndCommentId(userId: Int, commentId: Int) : CourseCommentVote?
+
 }
