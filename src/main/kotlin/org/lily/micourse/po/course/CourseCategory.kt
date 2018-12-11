@@ -1,4 +1,4 @@
-package org.lily.micourse.entity.course
+package org.lily.micourse.po.course
 
 import javax.persistence.*
 
@@ -9,7 +9,7 @@ import javax.persistence.*
  */
 @Entity
 @Table
-data class CourseDepartment(
+data class CourseCategory (
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,8 +4,8 @@ import org.lily.micourse.dao.course.CourseCategoryRepository
 import org.lily.micourse.dao.course.CourseDao
 import org.lily.micourse.dao.course.CourseDepartmentRepository
 import org.lily.micourse.dao.course.CourseFeedbackRepository
-import org.lily.micourse.entity.course.Course
-import org.lily.micourse.entity.course.CourseFeedback
+import org.lily.micourse.po.course.Course
+import org.lily.micourse.po.course.CourseFeedback
 import org.lily.micourse.vo.course.CourseDetailVO
 import org.lily.micourse.vo.course.CourseVO
 import org.lily.micourse.vo.course.LabelListVO

@@ -1,7 +1,7 @@
 package org.lily.micourse.dao.course
 
-import org.lily.micourse.entity.course.Course
-import org.lily.micourse.entity.course.CourseComment
+import org.lily.micourse.po.course.Course
+import org.lily.micourse.po.course.CourseComment
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 

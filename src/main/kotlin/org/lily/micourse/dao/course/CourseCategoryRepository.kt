@@ -1,6 +1,6 @@
 package org.lily.micourse.dao.course
 
-import org.lily.micourse.entity.course.CourseCategory
+import org.lily.micourse.po.course.CourseCategory
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

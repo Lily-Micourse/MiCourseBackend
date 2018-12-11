@@ -1,4 +1,4 @@
-package org.lily.micourse.entity
+package org.lily.micourse.po
 
 import javax.persistence.*
 

@@ -1,4 +1,4 @@
-package org.lily.micourse.entity.user
+package org.lily.micourse.po.user
 
 import java.time.LocalDateTime
 import javax.persistence.*
@@ -11,7 +11,7 @@ import javax.persistence.*
 
 
 /**
- * User entity
+ * User po
  * @param[registerEmail]  email used for login
  * @param[password] user password
  * @param[addIp] the ip when user registers
@@ -25,7 +25,7 @@ import javax.persistence.*
  * @param[qqNumber] user's qq number
  * @param[banned] whether this user has been banned
  * @param[addTime] user's join time, default is [LocalDateTime.now]
- * @param[id] id of this entity, should not be assigned when initialized
+ * @param[id] id of this po, should not be assigned when initialized
  *
  */
 @Entity

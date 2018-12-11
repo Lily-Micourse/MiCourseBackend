@@ -1,6 +1,6 @@
 package org.lily.micourse.dao.course
 
-import org.lily.micourse.entity.course.CourseFeedback
+import org.lily.micourse.po.course.CourseFeedback
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

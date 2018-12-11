@@ -1,7 +1,6 @@
-package org.lily.micourse.entity
+package org.lily.micourse.po
 
 import java.time.LocalDateTime
-import javax.persistence.Entity
 
 /**
  * Author: J.D. Liao

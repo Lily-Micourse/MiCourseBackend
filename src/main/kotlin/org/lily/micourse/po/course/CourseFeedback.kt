@@ -1,6 +1,6 @@
-package org.lily.micourse.entity.course
+package org.lily.micourse.po.course
 
-import org.lily.micourse.entity.user.User
+import org.lily.micourse.po.user.User
 import javax.persistence.*
 
 /**
