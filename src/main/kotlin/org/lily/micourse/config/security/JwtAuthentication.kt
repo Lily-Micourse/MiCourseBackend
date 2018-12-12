@@ -2,7 +2,7 @@ package org.lily.micourse.config.security
 
 import io.jsonwebtoken.*
 import org.lily.micourse.dao.user.UserRepository
-import org.lily.micourse.entity.user.User
+import org.lily.micourse.po.user.User
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value

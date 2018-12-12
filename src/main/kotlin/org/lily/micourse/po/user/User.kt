@@ -1,4 +1,4 @@
-package org.lily.micourse.entity.user
+package org.lily.micourse.po.user
 
 import java.time.LocalDateTime
 import javax.persistence.*

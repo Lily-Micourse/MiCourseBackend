@@ -1,6 +1,7 @@
 package org.lily.micourse.po
 
 import java.time.LocalDateTime
+import javax.persistence.*
 
 /**
  * Author: J.D. Liao
@@ -8,15 +9,28 @@ import java.time.LocalDateTime
  * Description:
  */
 
+@Entity
 data class EmailValidation(
-        val userId: Int,
+    val userId: Int,
 
-        val validationKey: String,
+    val validationKey: String,
 
-        val expired: LocalDateTime
+    @Enumerated(value = EnumType.ORDINAL)
+    val validationType: ValidationType,
+
+    val expired: LocalDateTime,
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int = -1
 )
 
-
 enum class ValidationType {
-
+    /**
+     * Register email validation
+     */
+    REGISTER,
+    /**
+     * School email validation
+     */
+    SCHOOL_EMAIL
 }
