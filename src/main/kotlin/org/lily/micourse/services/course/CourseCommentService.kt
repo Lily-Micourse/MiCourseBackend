@@ -54,8 +54,8 @@ interface CourseCommentService {
     /**
      * 对课程进行反馈
      */
-    fun addFeedBack(userId: Int, rate: Int, pressure: CoursePressure,
-                    score: Score, examineMethods: List<String>, checkInFrequency: CheckInFrequency,
+    fun addFeedBack(userId: Int, courseId: Int, rate: Int, pressure: CoursePressure,
+                    score: Score, examineMethods: Set<String>, checkInFrequency: CheckInFrequency,
                     content: String?, term: String): ResultMessage
 
 }

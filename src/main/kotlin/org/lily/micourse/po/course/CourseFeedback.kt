@@ -17,7 +17,7 @@ data class CourseFeedback(
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Int,
+        val id: Int = -1,
 
         @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY) // 一般用不到课程的信息
         @JoinColumn(name = "courseId")
@@ -32,6 +32,7 @@ data class CourseFeedback(
         @Enumerated(value = EnumType.ORDINAL)
         val pressure: CoursePressure,
 
+        @Enumerated(value = EnumType.ORDINAL)
         val score: Score,
 
         val evalPaper: Boolean,

@@ -41,17 +41,18 @@ class CourseDAO(
 
     fun getCourseByCategory(page: PageRequest, category: String): Pair<List<Course>, Long> {
         val pageResult = courseRepository.findAll({ p0, p1, p2 ->
-            val predicate: Predicate = p2.like(p0.get<CourseCategory>("courseCategory").get<String>("name"), "%$category%")
+            val predicate: Predicate = p2.like(p0.get<CourseCategory>("courseCategory").get<String>("name"), category)
             p1.where(predicate)
             null
         }, page)
+        print(pageResult)
         return Pair(pageResult.content, pageResult.totalElements)
     }
 
     fun getCourseByDepartment(page: PageRequest, department: String) : Pair<List<Course>, Long> {
 
         val pageResult = courseRepository.findAll({ p0, p1, p2 ->
-            val predicate: Predicate = p2.like(p0.get<CourseDepartment>("courseDepartment").get<String>("name"), "%$department%")
+            val predicate: Predicate = p2.like(p0.get<CourseDepartment>("courseDepartment").get<String>("name"), department)
             p1.where(predicate)
             null
         }, page)

@@ -24,10 +24,19 @@ class CourseVoteDao (
     fun deleteCommentVotingRecord(commentVote: CourseCommentVote) =
             courseCommentVoteRepository.delete(commentVote)
 
+    fun deleteCommentVotingRecord(userId: Int, commentId: Int) =
+            courseCommentVoteRepository.deleteByUserIdAndCommentId(commentId, userId)
+
     fun deleteSubCommentVotingRecord(subCommentVote: CourseSubCommentVote) =
             courseSubCommentVoteRepository.delete(subCommentVote)
 
+    fun deleteSubCommentVotingRecord(userId: Int, subCommentId: Int) =
+            courseSubCommentVoteRepository.deleteByUserIdAndCommentId(subCommentId, userId)
+
     fun getVotingRecordByUserIdAndCommentId(userId: Int, commentId: Int) =
-            courseCommentVoteRepository
+            courseCommentVoteRepository.findByUserIdAndCommentId(userId, commentId)
+
+    fun getSubVotingRecordByUserIdAndSubCommentId(userId: Int, subCommentId: Int) =
+            courseSubCommentVoteRepository.findByUserIdAndSubCommentId(userId, subCommentId)
 
 }
