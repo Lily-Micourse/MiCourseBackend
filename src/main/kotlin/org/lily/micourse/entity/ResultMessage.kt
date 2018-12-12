@@ -12,3 +12,5 @@ data class ResultMessage (
         var content: String
 
 )
+
+data class ErrorMessage(val error: String)

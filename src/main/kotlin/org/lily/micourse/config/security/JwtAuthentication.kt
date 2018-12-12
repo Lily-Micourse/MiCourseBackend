@@ -6,6 +6,7 @@ import org.lily.micourse.po.user.User
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServletResponse
  */
 
 val logger = LoggerFactory.getLogger("JwtAuthenticationEntryPoint")!!
+
 
 class JwtAuthenticationEntryPoint : AuthenticationEntryPoint {
     override fun commence(request: HttpServletRequest, response: HttpServletResponse, e: AuthenticationException) {
@@ -165,13 +167,15 @@ class UserPrincipal(user: User) : UserDetails {
 
     private val banned = user.banned
 
+    private val verified = user.isRegisterEmailValidated
+
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         // No authorities in MiCourse user
         return mutableListOf()
     }
 
     override fun isEnabled(): Boolean {
-        return true
+        return verified
     }
 
     override fun getUsername(): String {

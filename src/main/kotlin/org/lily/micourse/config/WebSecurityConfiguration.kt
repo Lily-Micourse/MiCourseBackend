@@ -31,12 +31,15 @@ class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     private lateinit var userDetailsService: UserPrincipalService
 
     @Autowired
+    private lateinit var passwordEncoder: PasswordEncoder
+
+    @Autowired
     private lateinit var jwtAuthenticationFilter: JwtAuthenticationFilter
 
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth!!.userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder())
+            .passwordEncoder(passwordEncoder)
     }
 
     override fun configure(http: HttpSecurity?) {

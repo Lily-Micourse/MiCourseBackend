@@ -3,7 +3,6 @@ package org.lily.micourse.controller
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
-import org.lily.micourse.config.security.UserPrincipal
 import org.lily.micourse.config.security.JwtTokenProvider
 import org.lily.micourse.exception.DuplicateException
 import org.lily.micourse.services.UserService
@@ -11,13 +10,14 @@ import org.lily.micourse.vo.authentication.LoginRequest
 import org.lily.micourse.vo.authentication.TokenResponse
 import org.lily.micourse.vo.authentication.UserRegistration
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
-import java.security.Principal
 import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
 
@@ -39,8 +39,8 @@ class AuthenticationController {
     @Autowired
     private lateinit var authenticationManager: AuthenticationManager
 
-    @GetMapping("/user/signup")
-    @ApiOperation(value = "register a new user", notes = "verify the user and return a token")
+    @PostMapping("/user")
+    @ApiOperation(value = "register a new user")
     @ApiResponses(
         value = [
             ApiResponse(code = 200, message = "OK"),
@@ -55,7 +55,8 @@ class AuthenticationController {
         userService.saveUser(user, request.remoteAddr)
     }
 
-    @GetMapping("/user/login")
+    @GetMapping("/user")
+    @ApiOperation(value = "login", notes = "verify the user and return a token")
     fun login(@Valid loginRequest: LoginRequest): TokenResponse {
 
         val authentication = authenticationManager.authenticate(

@@ -16,10 +16,10 @@ import javax.validation.constraints.NotBlank
 
 class LoginRequest(
     @field:NotBlank(message = "username is empty")
-    val username: String,
+    val username: String?,
 
     @field:NotBlank(message = "password is empty")
-    val password: String
+    val password: String?
 )
 
 data class UserRegistration(

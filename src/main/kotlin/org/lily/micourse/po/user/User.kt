@@ -39,7 +39,6 @@ data class User(
 
     val portraitUrl: String,
 
-    @Column(name = "user_name")
     val username: String,
 
     val schoolDepartmentId: Int = 0,
