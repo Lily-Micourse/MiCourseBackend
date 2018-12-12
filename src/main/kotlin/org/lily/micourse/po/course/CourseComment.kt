@@ -40,7 +40,7 @@ data class CourseComment (
         // 偷懒是不会被发现的！嗯！
 
         // 每个评论和它的子评论有一个双向关联关系
-        @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, mappedBy = "course_comment")
+        @OneToMany(targetEntity = CourseSubComment::class, cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, mappedBy = "courseComment")
         val subComments: Set<CourseSubComment>
 )
 

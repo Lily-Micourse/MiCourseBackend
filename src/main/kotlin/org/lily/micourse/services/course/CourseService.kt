@@ -31,10 +31,11 @@ class CourseService(
         var courseDepartmentRepository: CourseDepartmentRepository,
 
         @Autowired
-        var courseCategoryRepository: CourseCategoryRepository,
+        var courseFeedbackRepository: CourseFeedbackRepository,
 
         @Autowired
-        var courseFeedbackRepository: CourseFeedbackRepository
+        var courseCategoryRepository: CourseCategoryRepository
+
 ) {
 
     fun getLabelList(): LabelListVO {
@@ -114,7 +115,7 @@ class CourseService(
 
     fun getCourseDetailVO(id: Int): CourseDetailVO {
         val courseVO = getCourseVO(id)
-        val courseFeedbacks = courseFeedbackRepository.findByCourseId(id)
+        val courseFeedbacks = courseFeedbackRepository.findAllByCourseId(id)
         val pressureIndexes = genPressureIndexes(courseFeedbacks)
         val examineIndexes = genExamineIndexes(courseFeedbacks)
         val gradeIndexes = genGradeIndexes(courseFeedbacks)

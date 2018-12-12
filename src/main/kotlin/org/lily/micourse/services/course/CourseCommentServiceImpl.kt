@@ -32,10 +32,10 @@ class CourseCommentServiceImpl(
         var userRepository: UserRepository,
 
         @Autowired
-        var courseCommentDAO: CourseCommentDAO,
+        var courseCommentDAO: CourseCommentDAO
 
-        @Autowired
-        var courseFeedbackRepository: CourseFeedbackRepository
+//        @Autowired
+//        var courseFeedbackRepository: CourseFeedbackRepository
 
 ): CourseCommentService {
 

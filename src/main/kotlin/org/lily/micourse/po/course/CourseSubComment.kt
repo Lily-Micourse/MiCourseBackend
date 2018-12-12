@@ -20,7 +20,7 @@ data class CourseSubComment (
         @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Int = -1,
 
-        @OneToMany(fetch = FetchType.EAGER)
+        @ManyToOne(targetEntity = CourseComment::class , fetch = FetchType.EAGER)
         @JoinColumn(name = "commentId")
         val courseComment: CourseComment,
 
