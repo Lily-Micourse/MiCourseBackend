@@ -13,7 +13,6 @@ data class CourseCategory (
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Id
         val id: Int,
 
         val name: String

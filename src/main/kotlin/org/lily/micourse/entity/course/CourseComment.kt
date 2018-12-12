@@ -16,7 +16,6 @@ data class CourseComment (
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Id
         val id: Int,
 
         @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY) // 一般用不到课程的信息
@@ -51,7 +50,6 @@ data class CourseSubComment (
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Id
         val id: Int,
 
         val courseComment: CourseComment,

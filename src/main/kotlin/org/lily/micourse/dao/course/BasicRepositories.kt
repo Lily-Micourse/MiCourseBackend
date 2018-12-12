@@ -39,7 +39,6 @@ interface CourseFeedbackRepository: JpaRepository<CourseFeedbackRepository, Int>
 
     fun findByCourseId(courseId: Int): List<CourseFeedback>
 
-    fun 
 }
 
 @Repository

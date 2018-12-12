@@ -22,7 +22,6 @@ data class CourseFeedback(
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Id
         val id: Int,
 
         @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY) // 一般用不到课程的信息
