@@ -1,4 +1,4 @@
-package org.lily.micourse.entity.course
+package org.lily.micourse.po.course
 
 import javax.persistence.*
 
@@ -14,7 +14,7 @@ data class Course (
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Int,
+        val id: Int = -1,
 
         val courseIcon: String,
 

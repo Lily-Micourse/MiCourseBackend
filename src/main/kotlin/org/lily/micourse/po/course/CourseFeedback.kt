@@ -1,6 +1,9 @@
-package org.lily.micourse.entity.course
+package org.lily.micourse.po.course
 
-import org.lily.micourse.entity.user.User
+import org.lily.micourse.entity.course.CheckInFrequency
+import org.lily.micourse.entity.course.CoursePressure
+import org.lily.micourse.entity.course.Score
+import org.lily.micourse.po.user.User
 import javax.persistence.*
 
 /**
@@ -8,14 +11,6 @@ import javax.persistence.*
  * Description:
  * @author iznauy
  */
-
-data class CourseRate(
-
-        val id: Int,
-
-        val count: Long
-)
-
 @Entity
 @Table
 data class CourseFeedback(
@@ -37,7 +32,7 @@ data class CourseFeedback(
         @Enumerated(value = EnumType.ORDINAL)
         val pressure: CoursePressure,
 
-        val score: Int,
+        val score: Score,
 
         val evalPaper: Boolean,
 
@@ -55,20 +50,5 @@ data class CourseFeedback(
         val checkInFrequency: CheckInFrequency
 )
 
-enum class CoursePressure(private val frontEndName: String) {
-    LOW("low"),
-    MEDIUM("medium"),
-    HIGH("high");
 
-    override fun toString(): String = frontEndName
-}
 
-enum class CheckInFrequency(private val frontEndName: String) {
-    NEVER("never"),
-    ONCE("once"),
-    TWICE("twice"),
-    LESS_THAN_FIVE("lessThanFive"),
-    MORE_THAN_FIVE("moreThanFive");
-
-    override fun toString(): String = frontEndName
-}

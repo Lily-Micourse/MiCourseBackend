@@ -1,6 +1,6 @@
 package org.lily.micourse.dao.user
 
-import org.lily.micourse.entity.user.User
+import org.lily.micourse.po.user.User
 import org.springframework.data.repository.CrudRepository
 
 /**

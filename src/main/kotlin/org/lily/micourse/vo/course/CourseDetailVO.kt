@@ -12,13 +12,15 @@ data class CourseDetailVO (
 
         val name: String,
 
+        val rate: Float,
+
         val cover: String,
 
         val credit: Int,
 
-        val rate: Float,
+        val type: String, // category
 
-        val commentNum: Int,
+        val hasFeedback: Boolean,
 
         val pressureIndexes: Map<String, Int>,
 
@@ -29,11 +31,5 @@ data class CourseDetailVO (
         val checkInIndexes: Map<String, Int>
 ) {
 
-    constructor(courseVO: CourseVO, pressureIndexes: Map<String, Int>,
-                examineIndexes: Map<String, Int>, gradeIndexes: Map<String, Int>,
-                checkInIndexes: Map<String, Int>) :
-            this(courseVO.id, courseVO.name, courseVO.cover,
-            courseVO.credit, courseVO.rate, courseVO.commentNum,
-                    pressureIndexes, examineIndexes, gradeIndexes, checkInIndexes)
 
 }

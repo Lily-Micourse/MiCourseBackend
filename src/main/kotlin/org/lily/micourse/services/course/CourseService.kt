@@ -1,11 +1,12 @@
 package org.lily.micourse.services.course
 
 import org.lily.micourse.dao.course.CourseCategoryRepository
-import org.lily.micourse.dao.course.CourseDao
+import org.lily.micourse.dao.course.CourseDAO
 import org.lily.micourse.dao.course.CourseDepartmentRepository
 import org.lily.micourse.dao.course.CourseFeedbackRepository
-import org.lily.micourse.entity.course.Course
-import org.lily.micourse.entity.course.CourseFeedback
+import org.lily.micourse.entity.course.Score
+import org.lily.micourse.po.course.Course
+import org.lily.micourse.po.course.CourseFeedback
 import org.lily.micourse.vo.course.CourseDetailVO
 import org.lily.micourse.vo.course.CourseVO
 import org.lily.micourse.vo.course.LabelListVO
@@ -24,7 +25,7 @@ import java.util.stream.Collectors
 class CourseService(
 
         @Autowired
-        var courseDao: CourseDao,
+        var courseDAO: CourseDAO,
 
         @Autowired
         var courseDepartmentRepository: CourseDepartmentRepository,
@@ -37,7 +38,7 @@ class CourseService(
 ) {
 
     fun getLabelList(): LabelListVO {
-        val creditLabels = courseDao.getCreditLabels()
+        val creditLabels = courseDAO.getCreditLabels()
         val departmentLabels = courseDepartmentRepository.getDepartmentNames()
         val courseCategoryLabels = courseCategoryRepository.getCategoryNames()
         return LabelListVO(creditLabels, departmentLabels, courseCategoryLabels)
@@ -51,15 +52,15 @@ class CourseService(
                     CourseRankingType.LAST -> Sort.by(Sort.Direction.DESC, "id")
                 }
         val pageRequest = PageRequest.of(page, pageSize, sort)
-        return courseDao.getCourseList(page = pageRequest, pattern = pattern)
+        return courseDAO.getCourseList(page = pageRequest, pattern = pattern)
     }
 
     fun getCourseListByLabel(label: String, labelType: LabelType, page: Int, pageSize: Int): Pair<List<Course>, Long> {
         val pageRequest: PageRequest = PageRequest.of(page, pageSize)
         return when(labelType) {
-            LabelType.DEPARTMENT -> courseDao.getCourseByDepartment(pageRequest, label)
-            LabelType.CATEGORY -> courseDao.getCourseByCategory(pageRequest, label)
-            LabelType.CREDIT -> courseDao.getCourseByCredit(pageRequest, label.toInt())
+            LabelType.DEPARTMENT -> courseDAO.getCourseByDepartment(pageRequest, label)
+            LabelType.CATEGORY -> courseDAO.getCourseByCategory(pageRequest, label)
+            LabelType.CREDIT -> courseDAO.getCourseByCredit(pageRequest, label.toInt())
         }
     }
 
@@ -67,11 +68,11 @@ class CourseService(
      * 残疾的VO，里面的rate设置为0
      */
     private fun getCourseVO(id: Int): CourseVO {
-        var courseOpt = courseDao.getCourseById(id)
+        var courseOpt = courseDAO.getCourseById(id)
         if (courseOpt.isPresent) {
             var course = courseOpt.get()
         }
-        return null
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun calcCourseRate(courseFeedbacks: List<CourseFeedback>) =
@@ -98,22 +99,11 @@ class CourseService(
     }
 
     private fun genGradeIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {
-        var A = 0
-        var B = 0
-        var C = 0
-        var D = 0
-        var E = 0
-        courseFeedbacks
-                .map { it.score }
-                .forEach {
-                    when {
-                        it >= 90 -> A++
-                        it >= 80 -> B++
-                        it >= 70 -> C++
-                        it >= 60 -> D++
-                        else -> E++
-                    }
-                }
+        var A = courseFeedbacks.count { it.score == Score.A }
+        var B = courseFeedbacks.count { it.score == Score.B }
+        var C = courseFeedbacks.count { it.score == Score.C }
+        var D = courseFeedbacks.count { it.score == Score.D }
+        var E = courseFeedbacks.count { it.score == Score.E }
         return mapOf(
                 Pair("A", A), Pair("B", B), Pair("C", C), Pair("D", D), Pair("E", E)
         )
@@ -129,7 +119,8 @@ class CourseService(
         val examineIndexes = genExamineIndexes(courseFeedbacks)
         val gradeIndexes = genGradeIndexes(courseFeedbacks)
         val checkInIndexes = genCheckInIndexes(courseFeedbacks)
-        return CourseDetailVO(courseVO, pressureIndexes, examineIndexes, gradeIndexes, checkInIndexes)
+  //      return CourseDetailVO(courseVO, pressureIndexes, examineIndexes, gradeIndexes, checkInIndexes)
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }
