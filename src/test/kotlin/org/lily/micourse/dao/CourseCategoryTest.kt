@@ -22,9 +22,9 @@ class CourseCategoryTest {
 
     @Test
     fun test0() {
-        val courseCategory = CourseCategory(name = "general")
+        val courseCategory = CourseCategory(name = "通修")
         courseCategoryRepository.saveAndFlush(courseCategory)
-        val courseCategory2 = CourseCategory(name = "must")
+        val courseCategory2 = CourseCategory(name = "必修")
         courseCategoryRepository.saveAndFlush(courseCategory2)
     }
 
