@@ -18,24 +18,24 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 @Configuration
 @EnableSwagger2
-class Configuration {
+class SwaggerConfiguration {
 
     @Bean
     fun api(): Docket {
         return Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
+            .apiInfo(apiInfo())
+            .select()
+            .apis(RequestHandlerSelectors.any())
+            .paths(PathSelectors.any())
+            .build()
     }
 
     private fun apiInfo(): ApiInfo {
         return ApiInfoBuilder()
-                .title("MiCourse 4.0 API")
-                .description("That's Good")
-                .termsOfServiceUrl("abc.com")
-                .version("1.0")
-                .build()
+            .title("MiCourse 4.0 API")
+            .description("That's Good")
+            .termsOfServiceUrl("abc.com")
+            .version("1.0")
+            .build()
     }
 }

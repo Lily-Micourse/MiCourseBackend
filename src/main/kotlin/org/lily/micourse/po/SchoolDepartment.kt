@@ -11,8 +11,8 @@ import javax.persistence.*
 @Entity
 @Table(name = "school_department")
 data class SchoolDepartment(
-        val name: String,
+    val name: String,
 
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Int = -1
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int = -1
 )

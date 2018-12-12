@@ -5,8 +5,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 class ServletInitializer : SpringBootServletInitializer() {
 
-	override fun configure(application: SpringApplicationBuilder) : SpringApplicationBuilder {
-		return application.sources(MiCourseApplication::class.java)
-	}
+    override fun configure(application: SpringApplicationBuilder): SpringApplicationBuilder {
+        return application.sources(MiCourseApplication::class.java)
+    }
 
 }
