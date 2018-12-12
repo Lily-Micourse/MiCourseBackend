@@ -18,8 +18,8 @@ class MicourseApplicationTests {
 
 	@Test
 	fun contextLoads() {
-        val user = User("test@mail.com", "123456", "192.168.0.1",
-                "abc.jpg", "happy bird")
+        val user = User("abc@mail.com", "123456", "192.168.0.1",
+                "abc.jpg", "不知道")
 
         userRepository.save(user)
 	}
