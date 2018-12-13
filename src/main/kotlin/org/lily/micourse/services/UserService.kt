@@ -3,11 +3,13 @@ package org.lily.micourse.services
 import org.lily.micourse.config.security.UserPrincipal
 import org.lily.micourse.dao.user.UserDao
 import org.lily.micourse.entity.security.UserRegistration
+import org.lily.micourse.entity.user.UserChangeInfo
 import org.lily.micourse.entity.user.UserInfo
 import org.lily.micourse.exception.userNotFoundException
 import org.lily.micourse.po.EmailValidation
 import org.lily.micourse.po.ValidationType
 import org.lily.micourse.po.user.User
+import org.lily.micourse.po.user.convertGenderFromString
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -77,9 +79,34 @@ class UserService {
             userEntity.username,
             userDepartment,
             userEntity.grade,
-            userEntity.gender.repr,
+            userEntity.gender.representation,
             qq,
-            UNKNOWN_FIELD // todo major undecided
+            UNKNOWN_FIELD, // todo major undecided
+            userEntity.portraitUrl
         )
+    }
+
+    fun modifyUserInformation(user: UserPrincipal, changeInfo: UserChangeInfo) {
+        val userEntity = userDao.getUser(user.id) ?: throw userNotFoundException(user.username)
+
+        // Get new fields of user
+        val gender = changeInfo.gender?.let { convertGenderFromString(it) } ?: userEntity.gender
+        val department = changeInfo.department?.let { userDao.convertUserDepartment(it) }
+            ?: userEntity.schoolDepartmentId
+        val grade = changeInfo.grade ?: userEntity.grade
+        val qq = changeInfo.qq ?: userEntity.qqNumber
+        val nickname = changeInfo.nickname ?: userEntity.username  // nickname is username in User class
+        // todo consider major here
+
+        // Create new user entity and save it
+        val newUser = userEntity.copy(
+            gender = gender,
+            schoolDepartmentId = department,
+            username = nickname,
+            qqNumber = qq,
+            grade = grade
+        )
+
+        userDao.saveUser(newUser)
     }
 }

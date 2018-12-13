@@ -13,5 +13,8 @@ import org.springframework.data.jpa.repository.Query
 interface SchoolDepartmentRepository: JpaRepository<SchoolDepartment, Int> {
 
     @Query("select s.name from SchoolDepartment s where s.id = ?1")
-    fun getDepartmentName(id: Int): String?
+    fun getNameById(id: Int): String?
+
+    @Query("select s.id from SchoolDepartment s where s.name = ?1")
+    fun getIdByName(name: String): Int?
 }

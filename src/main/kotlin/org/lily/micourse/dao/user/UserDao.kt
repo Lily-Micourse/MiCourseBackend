@@ -1,8 +1,6 @@
 package org.lily.micourse.dao.user
 
 import org.lily.micourse.dao.SchoolDepartmentRepository
-import org.lily.micourse.exception.ResourceNotFoundException
-import org.lily.micourse.exception.userNotFoundException
 import org.lily.micourse.po.EmailValidation
 import org.lily.micourse.po.user.User
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,7 +24,9 @@ class UserDao {
     @Autowired
     private lateinit var emailValidationRepository: EmailValidationRepository
 
-    fun getUserDepartment(user: User) = schoolDepartmentRepository.getDepartmentName(user.schoolDepartmentId)
+    fun getUserDepartment(user: User) = schoolDepartmentRepository.getNameById(user.schoolDepartmentId)
+
+    fun convertUserDepartment(name: String) = schoolDepartmentRepository.getIdByName(name)
 
     fun getUser(registeredEmail: String) = userRepository.findByRegisterEmail(registeredEmail)
 

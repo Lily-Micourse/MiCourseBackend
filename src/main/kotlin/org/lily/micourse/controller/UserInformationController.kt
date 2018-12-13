@@ -1,12 +1,17 @@
 package org.lily.micourse.controller
 
-import io.swagger.annotations.*
+import io.swagger.annotations.ApiImplicitParam
+import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiResponse
+import io.swagger.annotations.ApiResponses
 import org.lily.micourse.config.security.UserPrincipal
+import org.lily.micourse.entity.user.UserChangeInfo
 import org.lily.micourse.entity.user.UserInfo
 import org.lily.micourse.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RestController
 import springfox.documentation.annotations.ApiIgnore
 
@@ -39,4 +44,18 @@ class UserInformationController {
     )
     fun getUserInformation(@ApiIgnore @AuthenticationPrincipal user: UserPrincipal) =
         userService.getUserInformation(user)
+
+    @PutMapping("/user/info")
+    @ApiOperation(value = "modify user information")
+    @ApiImplicitParam(
+        name = "Authorization",
+        value = "jwt",
+        required = true,
+        dataType = "string",
+        paramType = "header"
+    )
+    @ApiResponse(code = 404, message = "user not found")
+    fun changeUserInformation(@ApiIgnore @AuthenticationPrincipal user: UserPrincipal, changeInfo: UserChangeInfo) {
+        userService.modifyUserInformation(user, changeInfo)
+    }
 }

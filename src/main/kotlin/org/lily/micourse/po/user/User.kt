@@ -66,8 +66,16 @@ data class User(
 )
 
 
-enum class Gender(val repr: String) {
-    MALE("mail"),
+enum class Gender(val representation: String) {
+    MALE("male"),
     FEMALE("female"),
     UNKNOWN("unknown")
+}
+
+fun convertGenderFromString(gender: String): Gender {
+    return when(gender) {
+        Gender.MALE.representation -> Gender.MALE
+        Gender.FEMALE.representation -> Gender.FEMALE
+        else -> Gender.UNKNOWN
+    }
 }

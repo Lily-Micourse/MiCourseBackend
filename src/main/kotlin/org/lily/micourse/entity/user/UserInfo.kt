@@ -1,7 +1,6 @@
 package org.lily.micourse.entity.user
 
-import org.lily.micourse.config.security.UserPrincipal
-import org.lily.micourse.po.user.User
+import javax.validation.constraints.Min
 
 /**
  * Author: J.D. Liao
@@ -30,5 +29,25 @@ data class UserInfo(
 
     val qq: String,
 
-    val major: String
+    val major: String,
+
+    val avatar: String
+)
+
+/**
+ * Modification information of a user
+ */
+data class UserChangeInfo(
+    val nickname: String?,
+
+    val department: String?,
+
+    @field:Min(value = 0, message = "grade should not be less than zero")
+    val grade: Int?,
+
+    val gender: String?,
+
+    val qq: String?,
+
+    val major: String?
 )
