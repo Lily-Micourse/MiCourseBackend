@@ -44,9 +44,27 @@ class CourseCommentServiceImpl : CourseCommentService {
     @Autowired
     lateinit var courseFeedbackRepository: CourseFeedbackRepository
 
+    private fun getOriginalCourseComment(courseId: Int): List<CourseComment> =
+            courseCommentDAO.getCommentList(courseId)
+
+    private fun getSubComments(comments: List<CourseComment>) : Set<CourseSubComment> =
+        comments.map { it.subComments }.reduceRight { set, acc -> acc.plus(set) }
+
+    private fun buildSortedCommentTrees(courseCommentVoteMap: Map<CourseComment, Int>,
+                                 subCourseCommentVoteMap: Map<CourseSubComment, Int>): List<CourseCommentVO> {
+        TODO("not implemented")
+    }
+
+    override fun getCourseComments(courseId: Int): List<CourseCommentVO> {
+        val originalCourseComments = getOriginalCourseComment(courseId)
+        val courseCommentVoteMap = originalCourseComments.map { Pair(it, 0) }.toMap()
+        val subCourseCommentVoteMap = getSubComments(originalCourseComments).
+                map { Pair(it, 0) }.toMap()
+        return buildSortedCommentTrees(courseCommentVoteMap, subCourseCommentVoteMap)
+    }
 
     override fun getCourseComments(courseId: Int, userId: Int): List<CourseCommentVO> {
-        
+        val originalCourseComments = getOriginalCourseComment(courseId)
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

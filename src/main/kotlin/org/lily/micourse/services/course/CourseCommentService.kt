@@ -17,7 +17,12 @@ import org.springframework.stereotype.Service
 interface CourseCommentService {
 
     /**
-     * 获取某个课程的评论列表
+     * 在没有登录的情况下，获取某个课程的评论列表
+     */
+    fun getCourseComments(courseId: Int) : List<CourseCommentVO>
+
+    /**
+     * 在已经登录的情况下，获取某个课程的评论列表
      */
     fun getCourseComments(courseId: Int, userId: Int) : List<CourseCommentVO>
 
