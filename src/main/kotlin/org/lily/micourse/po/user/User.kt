@@ -1,5 +1,6 @@
 package org.lily.micourse.po.user
 
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -58,13 +59,15 @@ data class User(
 
     val addTime: LocalDateTime = LocalDateTime.now(),
 
+    val grade: Int = LocalDate.now().year,
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int = -1
 )
 
 
-enum class Gender {
-    MALE,
-    FEMALE,
-    UNKNOWN
+enum class Gender(val repr: String) {
+    MALE("mail"),
+    FEMALE("female"),
+    UNKNOWN("unknown")
 }

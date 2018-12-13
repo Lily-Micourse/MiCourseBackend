@@ -157,6 +157,11 @@ class UserPrincipalService : UserDetailsService {
     }
 }
 
+/**
+ * User information in authentication record
+ * @property id user id
+ * @property getUsername actually is user's registered email
+ */
 class UserPrincipal(user: User) : UserDetails {
 
     val id = user.id

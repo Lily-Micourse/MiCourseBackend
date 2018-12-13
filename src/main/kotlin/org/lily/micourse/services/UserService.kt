@@ -1,8 +1,10 @@
 package org.lily.micourse.services
 
-import org.lily.micourse.dao.user.EmailValidationRepository
-import org.lily.micourse.dao.user.UserRepository
+import org.lily.micourse.config.security.UserPrincipal
+import org.lily.micourse.dao.user.UserDao
 import org.lily.micourse.entity.security.UserRegistration
+import org.lily.micourse.entity.user.UserInfo
+import org.lily.micourse.exception.userNotFoundException
 import org.lily.micourse.po.EmailValidation
 import org.lily.micourse.po.ValidationType
 import org.lily.micourse.po.user.User
@@ -16,19 +18,19 @@ import org.springframework.stereotype.Service
  * Description:
  */
 
+const val UNKNOWN_FIELD = "未知"
+
 @Service
 class UserService {
 
     @Autowired
-    private lateinit var userRepository: UserRepository
-
-    @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
 
-    @Autowired
-    private lateinit var emailValidationRepository: EmailValidationRepository
 
-    fun userAlreadyExists(email: String) = userRepository.findByRegisterEmail(email) != null
+    @Autowired
+    private lateinit var userDao: UserDao
+
+    fun userAlreadyExists(email: String) = userDao.getUser(email) != null
 
     /**
      * Add new user to database
@@ -45,7 +47,7 @@ class UserService {
             portraitAddress, "not known"
         )
 
-        return userRepository.save(user)
+        return userDao.saveUser(user)
     }
 
     /**
@@ -56,11 +58,28 @@ class UserService {
      */
     fun saveEmailValidation(registeredEmail: String, token: String, type: ValidationType = ValidationType.REGISTER) {
         // Get user and his id
-        val user = userRepository.findByRegisterEmail(registeredEmail)
+        val user = userDao.getUser(registeredEmail)
         val userId = user!!.id
 
         // Save token
         val validationToken = EmailValidation(userId, token, type)
-        emailValidationRepository.save(validationToken)
+        userDao.addEmailValidation(validationToken)
+    }
+
+    fun getUserInformation(user: UserPrincipal): UserInfo {
+        // Get user's information from dao
+        val userEntity = userDao.getUser(user.id) ?: throw userNotFoundException(user.username)
+        val userDepartment = userDao.getUserDepartment(userEntity) ?: UNKNOWN_FIELD
+        val qq = userEntity.qqNumber ?: UNKNOWN_FIELD
+
+        // Transform to [UserInfo] object
+        return UserInfo(
+            userEntity.username,
+            userDepartment,
+            userEntity.grade,
+            userEntity.gender.repr,
+            qq,
+            UNKNOWN_FIELD // todo major undecided
+        )
     }
 }
