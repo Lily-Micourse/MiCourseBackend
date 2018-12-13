@@ -8,6 +8,7 @@ import javax.persistence.*
  * Date: 2018/11/11
  * Description:
  */
+const val EXPIRATION = 60 * 24
 
 @Entity
 data class EmailValidation(
@@ -18,7 +19,7 @@ data class EmailValidation(
     @Enumerated(value = EnumType.ORDINAL)
     val validationType: ValidationType,
 
-    val expired: LocalDateTime,
+    val expired: LocalDateTime = LocalDateTime.now().plusMinutes(EXPIRATION.toLong()),
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int = -1

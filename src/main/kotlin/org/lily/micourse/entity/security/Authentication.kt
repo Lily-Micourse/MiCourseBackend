@@ -1,5 +1,7 @@
-package org.lily.micourse.vo.authentication
+package org.lily.micourse.entity.security
 
+import org.springframework.context.ApplicationEvent
+import java.util.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
@@ -32,3 +34,6 @@ data class UserRegistration(
 )
 
 data class TokenResponse(val token: String, val tokenType: String)
+
+class OnRegistrationCompleteEvent(val registeredEmail: String, val appUrl: String, val locale: Locale) :
+    ApplicationEvent(registeredEmail)

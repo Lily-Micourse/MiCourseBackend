@@ -175,7 +175,7 @@ class UserPrincipal(user: User) : UserDetails {
     }
 
     override fun isEnabled(): Boolean {
-        return verified
+        return true
     }
 
     override fun getUsername(): String {
