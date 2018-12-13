@@ -44,21 +44,27 @@ class CourseTest {
     fun addCourse() {
         courseCategory = courseCategoryRepository.getOne(3)
         courseDepartment = courseDepartmentRepository.getOne(1)
-        val course1 = Course(courseCode = "25000101", courseName = "软件构造",
-                courseCategory = courseCategory, courseDepartment = courseDepartment, credit = 3, description = "潘敏学上的一门课，" +
+        val course1 = Course(courseCode = "25000104", courseName = "软件构造",
+                courseCategory = courseCategory, courseDepartment = courseDepartment, credit = 2, description = "潘敏学上的一门课，" +
                 "考试放在了1月，很坑")
         courseRepository.save(course1)
-        val course2 = Course(courseCode = "25000103", courseName = "软件测试",
-                courseCategory = courseCategory, courseDepartment = courseDepartment, credit = 3, description = "陈振宇，" +
+        val course2 = Course(courseCode = "25000105", courseName = "软件测试",
+                courseCategory = courseCategory, courseDepartment = courseDepartment, credit = 1, description = "陈振宇，" +
                 "这个老师就不用我多说什么了吧")
         courseRepository.save(course2)
     }
 
     @Test
-    fun testSelect() {
-        val courses = courseDAO.getCourseByCategory(PageRequest.of(0, 2), category = "必修")
+    fun testSelectByCategory() {
+        val courses = courseDAO.getCourseByCategory(PageRequest.of(1, 2), category = "通修")
         println(courses)
         println("OK")
+    }
+
+    @Test
+    fun testSelectByCredit() {
+        val courses = courseDAO.getCourseByCredit(PageRequest.of(0, 2), credit = 1)
+        print(courses)
     }
 
 

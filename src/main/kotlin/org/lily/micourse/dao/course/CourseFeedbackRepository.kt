@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository
 interface CourseFeedbackRepository: JpaRepository<CourseFeedback, Int> {
 
     fun findAllByCourseId(courseId: Int): List<CourseFeedback>
+
 }

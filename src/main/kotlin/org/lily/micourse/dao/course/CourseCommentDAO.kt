@@ -12,15 +12,13 @@ import org.springframework.stereotype.Repository
  * @author iznauy
  */
 @Repository
-class CourseCommentDAO (
+class CourseCommentDAO {
 
-        @Autowired
-        var courseCommentRepository: CourseCommentRepository,
+    @Autowired
+    lateinit var courseCommentRepository: CourseCommentRepository
 
-        @Autowired
-        var courseSubCommentRepository: CourseSubCommentRepository
-
-) {
+    @Autowired
+    lateinit var courseSubCommentRepository: CourseSubCommentRepository
 
     fun addComment(comment: CourseComment) = courseCommentRepository.save(comment)
 

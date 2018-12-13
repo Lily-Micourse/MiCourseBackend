@@ -5,7 +5,7 @@ package org.lily.micourse.vo.course
  * Description:
  * @author iznauy
  */
-data class SubCommentVO(
+data class CourseSubCommentVO(
 
         val id: Int,
 
@@ -21,7 +21,7 @@ data class SubCommentVO(
 
         val content: String,
 
-        val subComments: List<SubCommentVO>,
+        val courseSubComments: List<CourseSubCommentVO>,
 
         val agree: Int,
 
