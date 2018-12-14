@@ -1,5 +1,6 @@
 package org.lily.micourse.dao
 
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.lily.micourse.dao.course.CourseCategoryRepository
@@ -41,6 +42,7 @@ class CourseTest {
 
 
     @Test
+    @Ignore
     fun addCourse() {
         courseCategory = courseCategoryRepository.getOne(3)
         courseDepartment = courseDepartmentRepository.getOne(1)
@@ -55,6 +57,7 @@ class CourseTest {
     }
 
     @Test
+    @Ignore
     fun testSelectByCategory() {
         val courses = courseDAO.getCourseByCategory(PageRequest.of(1, 2), category = "通修")
         println(courses)
@@ -62,6 +65,7 @@ class CourseTest {
     }
 
     @Test
+    @Ignore
     fun testSelectByCredit() {
         val courses = courseDAO.getCourseByCredit(PageRequest.of(0, 2), credit = 1)
         print(courses)
