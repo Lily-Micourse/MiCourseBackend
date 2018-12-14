@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RestController
 import springfox.documentation.annotations.ApiIgnore
+import javax.validation.Valid
 
 /**
  * Author: J.D. Liao
@@ -55,7 +56,8 @@ class UserInformationController {
         paramType = "header"
     )
     @ApiResponse(code = 404, message = "user not found")
-    fun changeUserInformation(@ApiIgnore @AuthenticationPrincipal user: UserPrincipal, changeInfo: UserChangeInfo) {
+    fun changeUserInformation(@ApiIgnore @AuthenticationPrincipal user: UserPrincipal, @Valid changeInfo: UserChangeInfo) {
         userService.modifyUserInformation(user, changeInfo)
     }
+
 }

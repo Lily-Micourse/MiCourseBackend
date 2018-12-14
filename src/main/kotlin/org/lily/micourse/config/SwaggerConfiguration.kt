@@ -1,5 +1,6 @@
 package org.lily.micourse.config
 
+import io.swagger.annotations.ApiImplicitParam
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import springfox.documentation.builders.ApiInfoBuilder
@@ -9,6 +10,8 @@ import springfox.documentation.service.ApiInfo
 import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
 import springfox.documentation.swagger2.annotations.EnableSwagger2
+import java.lang.annotation.ElementType
+import java.lang.annotation.Inherited
 
 /**
  * Author: J.D. Liao

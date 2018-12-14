@@ -1,10 +1,13 @@
 package org.lily.micourse.services
 
 import org.lily.micourse.config.security.UserPrincipal
+import org.lily.micourse.config.security.logger
 import org.lily.micourse.dao.user.UserDao
 import org.lily.micourse.entity.security.UserRegistration
+import org.lily.micourse.entity.user.PasswordChange
 import org.lily.micourse.entity.user.UserChangeInfo
 import org.lily.micourse.entity.user.UserInfo
+import org.lily.micourse.exception.OldPasswordException
 import org.lily.micourse.exception.userNotFoundException
 import org.lily.micourse.po.EmailValidation
 import org.lily.micourse.po.ValidationType
@@ -87,7 +90,7 @@ class UserService {
     }
 
     fun modifyUserInformation(user: UserPrincipal, changeInfo: UserChangeInfo) {
-        val userEntity = userDao.getUser(user.id) ?: throw userNotFoundException(user.username)
+        val userEntity = getUserEntity(user)
 
         // Get new fields of user
         val gender = changeInfo.gender?.let { convertGenderFromString(it) } ?: userEntity.gender
@@ -109,4 +112,22 @@ class UserService {
 
         userDao.saveUser(newUser)
     }
+
+    fun modifyPassword(user: UserPrincipal, passwordChange: PasswordChange) {
+        // Verify old password
+        if (passwordEncoder.encode(passwordChange.oldPassword) != user.password) {
+            logger.error("Old password is wrong")
+            throw OldPasswordException()
+        }
+
+        // Encode new password and save it
+        val encryptedNewPassword = passwordEncoder.encode(passwordChange.newPassword)
+        val userEntity = getUserEntity(user)
+
+        val newUser = userEntity.copy(password = encryptedNewPassword)
+
+        userDao.saveUser(newUser)
+    }
+
+    private fun getUserEntity(user: UserPrincipal) = userDao.getUser(user.id) ?: throw userNotFoundException(user.username)
 }

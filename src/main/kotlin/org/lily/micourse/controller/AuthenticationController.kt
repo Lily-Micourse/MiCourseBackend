@@ -1,14 +1,17 @@
 package org.lily.micourse.controller
 
+import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.lily.micourse.config.security.JwtTokenProvider
+import org.lily.micourse.config.security.UserPrincipal
 import org.lily.micourse.config.security.logger
 import org.lily.micourse.entity.security.LoginRequest
 import org.lily.micourse.entity.security.OnRegistrationCompleteEvent
 import org.lily.micourse.entity.security.TokenResponse
 import org.lily.micourse.entity.security.UserRegistration
+import org.lily.micourse.entity.user.PasswordChange
 import org.lily.micourse.exception.DuplicateException
 import org.lily.micourse.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,12 +19,11 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.context.request.WebRequest
+import springfox.documentation.annotations.ApiIgnore
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
@@ -85,6 +87,19 @@ class AuthenticationController {
         )
     }
 
+    @PutMapping("user/password")
+    @ApiImplicitParam(
+        name = "Authorization",
+        value = "jwt",
+        required = true,
+        dataType = "string",
+        paramType = "header"
+    )
+    @ApiOperation(value = "modify password")
+    fun changePassword(@ApiIgnore @AuthenticationPrincipal user: UserPrincipal, @Valid passwordChange: PasswordChange) {
+        // Verify old password
+    }
+
     @GetMapping("user/validation")
     @ApiOperation(value = "validate email", notes = "validate registered email(not school email)")
     fun validationEmail(username: String, request: HttpServletRequest) =
@@ -94,6 +109,7 @@ class AuthenticationController {
     fun confirmRegistrationEmail(request: WebRequest, token: String) {
 
     }
+
 
     private fun sendRegistrationConfirmationEmail(email: String, appUrl: String, locale: Locale) {
 

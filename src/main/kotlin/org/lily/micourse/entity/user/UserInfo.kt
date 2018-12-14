@@ -1,6 +1,7 @@
 package org.lily.micourse.entity.user
 
 import javax.validation.constraints.Min
+import javax.validation.constraints.NotBlank
 
 /**
  * Author: J.D. Liao
@@ -50,4 +51,16 @@ data class UserChangeInfo(
     val qq: String?,
 
     val major: String?
+)
+
+/**
+ * DTO of changing password
+ */
+data class PasswordChange(
+
+    @field:NotBlank(message = "old password should not be blank")
+    val oldPassword: String?,
+
+    @field:NotBlank(message = "new password should not be blank")
+    val newPassword: String?
 )
