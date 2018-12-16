@@ -1,7 +1,6 @@
 package org.lily.micourse.services
 
 import org.lily.micourse.config.security.UserPrincipal
-import org.lily.micourse.config.security.logger
 import org.lily.micourse.dao.user.UserDao
 import org.lily.micourse.entity.security.UserRegistration
 import org.lily.micourse.entity.user.PasswordChange
@@ -13,9 +12,12 @@ import org.lily.micourse.po.EmailValidation
 import org.lily.micourse.po.ValidationType
 import org.lily.micourse.po.user.User
 import org.lily.micourse.po.user.convertGenderFromString
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
+import java.io.File
 
 /**
  * Author: J.D. Liao
@@ -23,7 +25,8 @@ import org.springframework.stereotype.Service
  * Description:
  */
 
-const val UNKNOWN_FIELD = "未知"
+private const val UNKNOWN_FIELD = "未知"
+private val logger = LoggerFactory.getLogger("UserService")
 
 @Service
 class UserService {
@@ -31,6 +34,8 @@ class UserService {
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
 
+    @Autowired
+    private lateinit var fileStorageService: FileStorageService
 
     @Autowired
     private lateinit var userDao: UserDao
@@ -115,7 +120,7 @@ class UserService {
 
     fun modifyPassword(user: UserPrincipal, passwordChange: PasswordChange) {
         // Verify old password
-        if (passwordEncoder.encode(passwordChange.oldPassword) != user.password) {
+        if (!passwordEncoder.matches(passwordChange.oldPassword, user.password)) {
             logger.error("Old password is wrong")
             throw OldPasswordException()
         }
@@ -129,5 +134,20 @@ class UserService {
         userDao.saveUser(newUser)
     }
 
-    private fun getUserEntity(user: UserPrincipal) = userDao.getUser(user.id) ?: throw userNotFoundException(user.username)
+    fun storeAvatar(user: UserPrincipal, avatar: MultipartFile) {
+        // Get file name with extension
+        val avatarFile = File(avatar.originalFilename!!)
+        val avatarFileName = user.id.toString() + "." + avatarFile.extension
+
+        val portraitPath = fileStorageService.storeAvatar(avatar, avatarFileName)
+
+        // Modify user entity's avatar field
+        val userEntity = getUserEntity(user)
+        val newUser = userEntity.copy(portraitUrl = portraitPath)
+
+        userDao.saveUser(newUser)
+    }
+
+    private fun getUserEntity(user: UserPrincipal) =
+        userDao.getUser(user.id) ?: throw userNotFoundException(user.username)
 }

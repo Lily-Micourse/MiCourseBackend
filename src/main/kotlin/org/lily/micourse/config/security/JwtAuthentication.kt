@@ -2,11 +2,11 @@ package org.lily.micourse.config.security
 
 import io.jsonwebtoken.*
 import org.lily.micourse.dao.user.UserRepository
+import org.lily.micourse.exception.InvalidTokenException
 import org.lily.micourse.po.user.User
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse
  * Description:
  */
 
-val logger = LoggerFactory.getLogger("JwtAuthenticationEntryPoint")!!
+private val logger = LoggerFactory.getLogger("JwtAuthenticationEntryPoint")!!
 
 
 class JwtAuthenticationEntryPoint : AuthenticationEntryPoint {
@@ -63,22 +63,26 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
             return
         }
 
-        val token = jwtTokenProvider.getJwtFromRequestHeader(header)!!
+        val token = jwtTokenProvider.getJwtFromRequestHeader(header)
 
-        if (jwtTokenProvider.validateToken(token)) {
-            // set authentication information only if the token is valid
+        if (!jwtTokenProvider.validateToken(token)) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+            return
+        }
 
-            try {
-                val registrationName = jwtTokenProvider.getNameFromToken(token)
-                val userDetails = userPrincipalService.loadUserByUsername(registrationName)
-                val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
-                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
-                SecurityContextHolder.getContext().authentication = authentication
 
-            } catch (e: Exception) {
-                logger.error("Could not set user authentication in security context", e)
-                SecurityContextHolder.clearContext()
-            }
+        try {
+            val registrationName = jwtTokenProvider.getNameFromToken(token)
+            val userDetails = userPrincipalService.loadUserByUsername(registrationName)
+            val authentication = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+            authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+            SecurityContextHolder.getContext().authentication = authentication
+
+        } catch (e: Exception) {
+            logger.error("Could not set user authentication in security context", e)
+            SecurityContextHolder.clearContext()
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+            return
         }
 
         filterChain.doFilter(request, response)
@@ -100,11 +104,13 @@ class JwtTokenProvider {
     val tokenType: String
         get() = prefix
 
-    fun getJwtFromRequestHeader(bearerToken: String): String? {
+    fun getJwtFromRequestHeader(bearerToken: String): String {
         if (bearerToken.isNotBlank() && bearerToken.startsWith(prefix))
             return bearerToken.substring(prefix.length).trim()
 
-        return null
+        // Return empty string instead
+        logger.error("Invalid authorization")
+        return ""
     }
 
     fun getNameFromToken(token: String): String =
@@ -129,15 +135,15 @@ class JwtTokenProvider {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token)
             return true
         } catch (ex: SignatureException) {
-            logger.error("Invalid JWT signature");
+            logger.error("Invalid JWT signature")
         } catch (ex: MalformedJwtException) {
-            logger.error("Invalid JWT token");
+            logger.error("Invalid JWT token")
         } catch (ex: ExpiredJwtException) {
-            logger.error("Expired JWT token");
+            logger.error("Expired JWT token")
         } catch (ex: UnsupportedJwtException) {
-            logger.error("Unsupported JWT token");
+            logger.error("Unsupported JWT token")
         } catch (ex: IllegalArgumentException) {
-            logger.error("JWT claims string is empty.");
+            logger.error("JWT claims string is empty.")
         }
         return false
     }

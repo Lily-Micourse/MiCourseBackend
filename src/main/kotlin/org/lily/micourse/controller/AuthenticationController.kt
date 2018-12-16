@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.lily.micourse.config.security.JwtTokenProvider
 import org.lily.micourse.config.security.UserPrincipal
-import org.lily.micourse.config.security.logger
 import org.lily.micourse.entity.security.LoginRequest
 import org.lily.micourse.entity.security.OnRegistrationCompleteEvent
 import org.lily.micourse.entity.security.TokenResponse
@@ -14,6 +13,7 @@ import org.lily.micourse.entity.security.UserRegistration
 import org.lily.micourse.entity.user.PasswordChange
 import org.lily.micourse.exception.DuplicateException
 import org.lily.micourse.services.UserService
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.http.HttpStatus
@@ -33,6 +33,8 @@ import javax.validation.Valid
  * Date: 2018/11/8
  * Description:
  */
+
+private val logger = LoggerFactory.getLogger("AuthenticationController")
 
 @RestController
 class AuthenticationController {
@@ -97,7 +99,7 @@ class AuthenticationController {
     )
     @ApiOperation(value = "modify password")
     fun changePassword(@ApiIgnore @AuthenticationPrincipal user: UserPrincipal, @Valid passwordChange: PasswordChange) {
-        // Verify old password
+        userService.modifyPassword(user, passwordChange)
     }
 
     @GetMapping("user/validation")

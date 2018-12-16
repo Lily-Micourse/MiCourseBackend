@@ -1,6 +1,7 @@
 package org.lily.micourse.config
 
 import org.lily.micourse.entity.ErrorMessage
+import org.lily.micourse.exception.InvalidTokenException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.BadCredentialsException

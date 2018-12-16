@@ -1,8 +1,5 @@
-package org.lily.micourse.config
+package org.lily.micourse.config.security
 
-import org.lily.micourse.config.security.JwtAuthenticationEntryPoint
-import org.lily.micourse.config.security.JwtAuthenticationFilter
-import org.lily.micourse.config.security.UserPrincipalService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -31,15 +28,12 @@ class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     private lateinit var userDetailsService: UserPrincipalService
 
     @Autowired
-    private lateinit var passwordEncoder: PasswordEncoder
-
-    @Autowired
     private lateinit var jwtAuthenticationFilter: JwtAuthenticationFilter
 
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth!!.userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder)
+            .passwordEncoder(passwordEncoder())
     }
 
     override fun configure(http: HttpSecurity?) {
@@ -51,7 +45,7 @@ class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
             .exceptionHandling()
             .authenticationEntryPoint(unauthorizedHandler())
             .and()
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
