@@ -52,6 +52,10 @@ class CourseCommentServiceImpl : CourseCommentService {
 
     private fun buildSortedCommentTrees(courseCommentVoteMap: Map<CourseComment, Int>,
                                  subCourseCommentVoteMap: Map<CourseSubComment, Int>): List<CourseCommentVO> {
+        var resultList: MutableList<CourseCommentVO> = mutableListOf()
+        courseCommentVoteMap.forEach { entry ->  {
+
+        }}
         TODO("not implemented")
     }
 

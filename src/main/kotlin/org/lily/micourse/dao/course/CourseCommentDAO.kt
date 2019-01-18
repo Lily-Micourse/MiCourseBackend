@@ -27,12 +27,19 @@ class CourseCommentDAO {
     fun getCommentById(courseCommentId: Int)
             = courseCommentRepository.findById(courseCommentId)
 
+    fun getCommentCountByIds(ids: Collection<Int>) : List<Pair<Int, Int>> {
+        TODO("慢慢写呗...")
+    }
+
     fun getCommentList(courseId: Int) : List<CourseComment> {
         return courseCommentRepository.findAll { p0, p1, p2 ->
             p1.where(p2.equal(p0.get<Course>("course").get<Int>("id"), courseId))
             null
         }
     }
+
+
+
 
     private fun getCommentByCommentId(id: Int)
             = courseCommentRepository.findById(id)

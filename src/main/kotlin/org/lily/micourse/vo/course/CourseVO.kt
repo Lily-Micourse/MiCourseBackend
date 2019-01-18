@@ -1,5 +1,7 @@
 package org.lily.micourse.vo.course
 
+import org.lily.micourse.po.course.Course
+
 /**
  * Created on 11/11/2018.
  * Description:
@@ -16,7 +18,7 @@ data class CourseVO (
 
         val credit: Int,
 
-        val rate: Float,
+        val rate: Double,
 
         val commentNum: Int,
 
@@ -24,4 +26,8 @@ data class CourseVO (
 
         val category: String
 
-)
+) {
+    constructor(course: Course, courseRate: Double, commentNum: Int)
+        :this(course.id, course.courseName, course.courseIcon, course.credit, courseRate, commentNum,
+            course.courseDepartment.name, course.courseCategory.name)
+}

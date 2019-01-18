@@ -79,50 +79,7 @@ class CourseService(
     private fun calcCourseRate(courseFeedbacks: List<CourseFeedback>) =
             courseFeedbacks.stream().map { it.rate }.collect(Collectors.averagingDouble {it + 0.0})
 
-    private fun genPressureIndexes(courseFeedbacks: List<CourseFeedback>) = courseFeedbacks
-                .groupBy { it.pressure.name }.mapValues { it.value.size }
 
-
-    private fun genExamineIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {
-
-        val paper = courseFeedbacks.count { it.evalPaper }
-        val attendence = courseFeedbacks.count { it.evalAttendance }
-        val teamWork = courseFeedbacks.count { it.evalTeamWork }
-        val closedBookExam = courseFeedbacks.count { it.evalClosedBookExam }
-        val openBookExam = courseFeedbacks.count { it.evalOpenBookExam }
-        val others = courseFeedbacks.count { it.evalOthers }
-        return mapOf(
-                Pair("essay", paper), Pair("checkIn", attendence), Pair("discussion", teamWork),
-                Pair("closedBookExam", closedBookExam), Pair("openBookExam", openBookExam),
-                Pair("others", others)
-        )
-
-    }
-
-    private fun genGradeIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {
-        var A = courseFeedbacks.count { it.score == Score.A }
-        var B = courseFeedbacks.count { it.score == Score.B }
-        var C = courseFeedbacks.count { it.score == Score.C }
-        var D = courseFeedbacks.count { it.score == Score.D }
-        var E = courseFeedbacks.count { it.score == Score.E }
-        return mapOf(
-                Pair("A", A), Pair("B", B), Pair("C", C), Pair("D", D), Pair("E", E)
-        )
-    }
-
-    private fun genCheckInIndexes(courseFeedbacks: List<CourseFeedback>) = courseFeedbacks.
-                groupBy { it.checkInFrequency.toString() }.mapValues { it.value.size }
-
-    fun getCourseDetailVO(id: Int): CourseDetailVO {
-        val courseVO = getCourseVO(id)
-        val courseFeedbacks = courseFeedbackRepository.findAllByCourseId(id)
-        val pressureIndexes = genPressureIndexes(courseFeedbacks)
-        val examineIndexes = genExamineIndexes(courseFeedbacks)
-        val gradeIndexes = genGradeIndexes(courseFeedbacks)
-        val checkInIndexes = genCheckInIndexes(courseFeedbacks)
-  //      return CourseDetailVO(courseVO, pressureIndexes, examineIndexes, gradeIndexes, checkInIndexes)
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
 }
 

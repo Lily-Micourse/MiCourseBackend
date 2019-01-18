@@ -1,5 +1,7 @@
 package org.lily.micourse.vo.course
 
+import org.lily.micourse.po.course.Course
+
 /**
  * Created on 05/12/2018.
  * Description:
@@ -12,7 +14,7 @@ data class CourseDetailVO (
 
         val name: String,
 
-        val rate: Float,
+        val rate: Double,
 
         val cover: String,
 
@@ -28,8 +30,15 @@ data class CourseDetailVO (
 
         val gradeIndexes: Map<String, Int>,
 
-        val checkInIndexes: Map<String, Int>
+        val checkInIndexes: Map<String, Int>,
+
+        val description: String
+
 ) {
 
+    constructor(course: Course, rate: Double, hasFeedback: Boolean, pressureIndexes: Map<String, Int>, examineIndexes: Map<String, Int>,
+                gradeIndexes: Map<String, Int>, checkInIndexes: Map<String, Int>)
+        : this(course.id, course.courseName, rate, course.courseIcon, course.credit, course.courseCategory.name,
+            hasFeedback, pressureIndexes, examineIndexes, gradeIndexes, checkInIndexes, course.description)
 
 }
