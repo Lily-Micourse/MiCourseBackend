@@ -10,13 +10,11 @@ import org.lily.micourse.entity.user.UserInfo
 import org.lily.micourse.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.util.MimeTypeUtils
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 import springfox.documentation.annotations.ApiIgnore
-import java.io.File
 import javax.validation.Valid
 
 /**

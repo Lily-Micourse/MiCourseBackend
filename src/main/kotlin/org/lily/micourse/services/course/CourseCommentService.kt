@@ -17,6 +17,6 @@ interface CourseCommentService {
 
     fun doSubComment(userId: Int, content: String, commentId: Int, subCommentId: Int?)
 
-    fun getCourseCommetVotingState(courseId: Int, userId: Int): CourseCommetVotingStateVO
+    fun getCourseCommentVotingState(courseId: Int, userId: Int): CourseCommetVotingStateVO
 
 }

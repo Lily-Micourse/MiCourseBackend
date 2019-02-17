@@ -87,7 +87,7 @@ class CourseCommentServiceImpl: CourseCommentService {
                 parentSubCommentVO.courseSubComments.add(courseSubCommentVO)
             }
         }
-        
+
         return commentVOs
     }
 
@@ -106,7 +106,7 @@ class CourseCommentServiceImpl: CourseCommentService {
         courseCommentDao.addSubComment(subComment)
     }
 
-    override fun getCourseCommetVotingState(courseId: Int, userId: Int): CourseCommetVotingStateVO {
+    override fun getCourseCommentVotingState(courseId: Int, userId: Int): CourseCommetVotingStateVO {
         val commentVotes = courseCommentVoteDao.findVotingByUserIdAndCourseId(userId, courseId)
                 .stream().collect(Collectors.toMap(CourseCommentVote::id, CourseCommentVote::agree))
 

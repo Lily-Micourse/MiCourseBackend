@@ -7,4 +7,5 @@ package org.lily.micourse.entity.course
  */
 enum class RankingType {
     HOT, LAST, RECOMMENDED
+
 }
