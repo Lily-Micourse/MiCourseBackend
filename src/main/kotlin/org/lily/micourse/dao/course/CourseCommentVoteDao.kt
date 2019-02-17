@@ -12,6 +12,8 @@ import org.lily.micourse.po.course.CourseSubCommentVote
 
 interface CourseCommentVoteDao {
 
+    fun findVotingByUserIdAndCourseId(userId: Int, courseId: Int): List<CourseCommentVote>
+
     fun voteComment(userId: Int, commentId: Int, agree: Boolean)
 
     fun voteSubComment(userId: Int, subCommentId: Int, agree: Boolean)

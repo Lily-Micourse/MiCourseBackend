@@ -18,4 +18,6 @@ interface CourseCommentVoteRepository : CrudRepository<CourseCommentVote, Int> {
     @Query(value = "delete from course_comment_vote where comment_id = ? and userId = ?", nativeQuery = true)
     fun deleteByUserIdAndCommentId(commentId: Int, userId: Int)
 
+    fun findAllByUserIdAndCourseId(userId: Int, courseId: Int) : List<CourseCommentVote>
+
 }

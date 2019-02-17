@@ -21,6 +21,8 @@ class CourseInfoDaoImpl: CourseInfoDao {
 
     override fun getCourseById(id: Int): Optional<Course> = courseRepository.findById(id)
 
+    override fun existCourse(id: Int): Boolean = courseRepository.existsById(id)
+
     override fun getCourseList(page: PageRequest, pattern: String): Pair<List<Course>, Long> {
         val pageResult = courseRepository.findAll({ p0, p1, p2 ->
             val predicate1: Predicate = p2.like(p0.get("courseName"), "%$pattern%")

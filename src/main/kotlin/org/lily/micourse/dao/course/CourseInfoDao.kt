@@ -11,6 +11,8 @@ import java.util.*
  */
 interface CourseInfoDao {
 
+    fun existCourse(id: Int) : Boolean
+
     fun getCourseById(id: Int) : Optional<Course>
 
     fun getCourseList(page: PageRequest, pattern: String = ""): Pair<List<Course>, Long>

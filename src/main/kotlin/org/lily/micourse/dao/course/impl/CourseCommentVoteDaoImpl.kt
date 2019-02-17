@@ -21,6 +21,9 @@ class CourseCommentVoteDaoImpl: CourseCommentVoteDao {
     @Autowired
     private lateinit var courseSubCommentVoteRepository: CourseSubCommentVoteRepository
 
+    override fun findVotingByUserIdAndCourseId(userId: Int, courseId: Int): List<CourseCommentVote>
+        = courseCommentVoteRepository.findAllByUserIdAndCourseId(userId, courseId)
+
     override fun voteComment(userId: Int, commentId: Int, agree: Boolean) {
         courseCommentVoteRepository.save(CourseCommentVote(userId = userId, commentId = commentId, agree = agree))
     }
