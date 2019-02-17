@@ -16,4 +16,8 @@ interface CourseSubCommentVoteRepository: CrudRepository<CourseSubCommentVote, I
 
     fun findByUserIdAndSubCommentId(userId: Int, subCommentId: Int) : CourseSubCommentVote
 
+    fun findAllByUserIdAndCourseId(userId: Int, courseId: Int) : List<CourseSubCommentVote>
+
+    fun findAllByCourseId(courseId: Int): List<CourseSubCommentVote>
+
 }

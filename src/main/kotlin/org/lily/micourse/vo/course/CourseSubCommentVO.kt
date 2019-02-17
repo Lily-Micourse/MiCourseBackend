@@ -1,5 +1,8 @@
 package org.lily.micourse.vo.course
 
+import org.lily.micourse.po.course.CourseSubComment
+import org.lily.micourse.po.user.User
+
 /**
  * Created on 11/12/2018.
  * Description:
@@ -21,11 +24,17 @@ data class CourseSubCommentVO(
 
         val content: String,
 
-        val courseSubComments: List<CourseSubCommentVO>,
+        val time: String,
+
+        val courseSubComments: MutableList<CourseSubCommentVO>,
 
         val agree: Int,
 
-        val disagree: Int,
+        val disagree: Int
 
-        val voting: Int
-)
+) {
+    constructor(courseSubComment: CourseSubComment, user: User, agree: Int, disagree: Int)
+        : this(courseSubComment.id, courseSubComment.courseComment.id, user.id, user.username,
+            user.portraitUrl, user.isSchoolEmailValidated, courseSubComment.content, courseSubComment.addTime.toString(),
+            mutableListOf<CourseSubCommentVO>(), agree, disagree)
+}

@@ -14,6 +14,12 @@ interface CourseCommentVoteDao {
 
     fun findVotingByUserIdAndCourseId(userId: Int, courseId: Int): List<CourseCommentVote>
 
+    fun findSubVotingByUserIdAndCourseId(userId: Int, courseId: Int): List<CourseSubCommentVote>
+
+    fun findVotingByCourseId(courseId: Int): List<CourseCommentVote>
+
+    fun findSubVotingByCourseId(courseId: Int): List<CourseSubCommentVote>
+
     fun voteComment(userId: Int, commentId: Int, agree: Boolean)
 
     fun voteSubComment(userId: Int, subCommentId: Int, agree: Boolean)

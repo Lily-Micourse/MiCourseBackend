@@ -24,6 +24,11 @@ class UserDao {
     @Autowired
     private lateinit var emailValidationRepository: EmailValidationRepository
 
+    fun getUsersByIds(ids: Collection<Int>) : Map<Int, User> {
+        val users = userRepository.findAllByUserIdIn(ids)
+        return users.groupBy { it.id }.mapValues { it.value[0] }
+    }
+
     fun getUserDepartment(user: User) = schoolDepartmentRepository.getNameById(user.schoolDepartmentId)
 
     fun convertUserDepartment(name: String) = schoolDepartmentRepository.getIdByName(name)

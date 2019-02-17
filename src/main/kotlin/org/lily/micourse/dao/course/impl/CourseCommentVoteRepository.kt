@@ -20,4 +20,6 @@ interface CourseCommentVoteRepository : CrudRepository<CourseCommentVote, Int> {
 
     fun findAllByUserIdAndCourseId(userId: Int, courseId: Int) : List<CourseCommentVote>
 
+    fun findAllByCourseId(courseId: Int): List<CourseCommentVote>
+
 }
