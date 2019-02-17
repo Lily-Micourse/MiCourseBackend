@@ -4,7 +4,7 @@ import org.lily.micourse.entity.ResultMessage
 import org.lily.micourse.entity.course.CheckInFrequency
 import org.lily.micourse.entity.course.CommentVotingType
 import org.lily.micourse.entity.course.CoursePressure
-import org.lily.micourse.entity.course.Score
+import org.lily.micourse.entity.course.Grade
 import org.lily.micourse.vo.course.CourseCommentVO
 import org.springframework.stereotype.Service
 
@@ -60,7 +60,7 @@ interface CourseCommentService {
      * 对课程进行反馈
      */
     fun addFeedBack(userId: Int, courseId: Int, rate: Int, pressure: CoursePressure,
-                    score: Score, examineMethods: Set<String>, checkInFrequency: CheckInFrequency,
+                    grade: Grade, examineMethods: Set<String>, checkInFrequency: CheckInFrequency,
                     content: String?, term: String): ResultMessage
 
 }

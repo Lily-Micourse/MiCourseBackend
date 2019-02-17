@@ -1,7 +1,7 @@
 package org.lily.micourse.services.deprecated.course
 
 import org.lily.micourse.dao.deprecated.course.*
-import org.lily.micourse.entity.course.Score
+import org.lily.micourse.entity.course.Grade
 import org.lily.micourse.po.course.Course
 import org.lily.micourse.po.course.CourseFeedback
 import org.lily.micourse.vo.course.CourseDetailVO
@@ -109,11 +109,11 @@ class CourseInfoServiceImpl: CourseInfoService {
     }
 
     private fun genGradeIndexes(courseFeedbacks: List<CourseFeedback>): Map<String, Int> {
-        val A = courseFeedbacks.count { it.score == Score.A }
-        val B = courseFeedbacks.count { it.score == Score.B }
-        val C = courseFeedbacks.count { it.score == Score.C }
-        val D = courseFeedbacks.count { it.score == Score.D }
-        val E = courseFeedbacks.count { it.score == Score.E }
+        val A = courseFeedbacks.count { it.grade == Grade.A }
+        val B = courseFeedbacks.count { it.grade == Grade.B }
+        val C = courseFeedbacks.count { it.grade == Grade.C }
+        val D = courseFeedbacks.count { it.grade == Grade.D }
+        val E = courseFeedbacks.count { it.grade == Grade.E }
         return mapOf(
                 Pair("A", A), Pair("B", B), Pair("C", C), Pair("D", D), Pair("E", E)
         )

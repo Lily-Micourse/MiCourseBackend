@@ -1,5 +1,6 @@
 package org.lily.micourse.dao.course
 
+import com.sun.org.apache.xpath.internal.operations.Bool
 import org.lily.micourse.po.course.CourseCommentVote
 import org.lily.micourse.po.course.CourseSubCommentVote
 
@@ -10,6 +11,10 @@ import org.lily.micourse.po.course.CourseSubCommentVote
  */
 
 interface CourseCommentVoteDao {
+
+    fun voteComment(userId: Int, commentId: Int, agree: Boolean)
+
+    fun voteSubComment(userId: Int, subCommentId: Int, agree: Boolean)
 
     fun deleteCommentVotingRecord(commentVote: CourseCommentVote)
 

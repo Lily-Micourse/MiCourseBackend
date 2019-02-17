@@ -15,8 +15,10 @@ data class CourseSubCommentVote (
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Int = -1,
 
-        val userId: Int = -1,
+        val userId: Int,
 
-        val subCommentId: Int = -1
+        val subCommentId: Int,
+
+        val agree: Boolean
 
 )

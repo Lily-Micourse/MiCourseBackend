@@ -21,6 +21,15 @@ class CourseCommentVoteDaoImpl: CourseCommentVoteDao {
     @Autowired
     private lateinit var courseSubCommentVoteRepository: CourseSubCommentVoteRepository
 
+    override fun voteComment(userId: Int, commentId: Int, agree: Boolean) {
+        courseCommentVoteRepository.save(CourseCommentVote(userId = userId, commentId = commentId, agree = agree))
+    }
+
+    override fun voteSubComment(userId: Int, subCommentId: Int, agree: Boolean) {
+        courseSubCommentVoteRepository.save(CourseSubCommentVote(userId = userId, subCommentId = subCommentId,
+                agree = agree))
+    }
+
     override fun deleteCommentVotingRecord(commentVote: CourseCommentVote) =
             courseCommentVoteRepository.delete(commentVote)
 

@@ -10,6 +10,8 @@ import java.util.*
  */
 interface CourseFeedbackDao {
 
+    fun addFeedback(courseFeedback: CourseFeedback)
+
     fun findFeedbacksByCourseId(courseId: Int): List<CourseFeedback>
 
     fun findFeedbackByCourseIdAndUserId(courseId: Int, userId: Int) : Optional<CourseFeedback>

@@ -1,5 +1,6 @@
 package org.lily.micourse.po.course
 
+import com.sun.org.apache.xpath.internal.operations.Bool
 import javax.persistence.*
 
 /**
@@ -17,6 +18,8 @@ data class CourseCommentVote (
 
         val userId: Int,
 
-        val commentId: Int
+        val commentId: Int,
+
+        val agree: Boolean
 
 )

@@ -2,7 +2,7 @@ package org.lily.micourse.po.course
 
 import org.lily.micourse.entity.course.CheckInFrequency
 import org.lily.micourse.entity.course.CoursePressure
-import org.lily.micourse.entity.course.Score
+import org.lily.micourse.entity.course.Grade
 import javax.persistence.*
 
 /**
@@ -22,13 +22,13 @@ data class CourseFeedback(
 
         val userId: Int,
 
-        val rate: Int,
+        val rate: Double,
 
         @Enumerated(value = EnumType.ORDINAL)
         val pressure: CoursePressure,
 
         @Enumerated(value = EnumType.ORDINAL)
-        val score: Score,
+        val grade: Grade,
 
         @Enumerated(value = EnumType.ORDINAL)
         val checkInFrequency: CheckInFrequency,
@@ -43,7 +43,9 @@ data class CourseFeedback(
 
         val evalOpenBookExam: Boolean,
 
-        val evalOthers: Boolean
+        val evalOthers: Boolean,
+
+        val term: String
 )
 
 

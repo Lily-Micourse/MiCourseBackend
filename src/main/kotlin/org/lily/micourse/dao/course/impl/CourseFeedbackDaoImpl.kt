@@ -17,6 +17,10 @@ class CourseFeedbackDaoImpl: CourseFeedbackDao {
     @Autowired
     private lateinit var courseFeedbackRepository: CourseFeedbackRepository
 
+    override fun addFeedback(courseFeedback: CourseFeedback) {
+        courseFeedbackRepository.save(courseFeedback)
+    }
+
     override fun findFeedbacksByCourseId(courseId: Int): List<CourseFeedback>
             = courseFeedbackRepository.findAllByCourseId(courseId)
 
@@ -27,7 +31,11 @@ class CourseFeedbackDaoImpl: CourseFeedbackDao {
     override fun findCourseRatesByIds(ids: Collection<Int>): Map<Int, Double> {
         val result: MutableMap<Int, Double> = mutableMapOf()
         courseFeedbackRepository.findAllByCourseIdIn(ids).groupBy { it.courseId }
-                .forEach { t, u -> result[t] = u.sumBy { it.rate } * 1.0 / u.size }
+                .forEach { t, u -> result[t] = u.sumByDouble { it.rate } / u.size }
+        for (id: Int in ids) {
+            if (!result.keys.contains(id))
+                result.put(id, Double.NaN)
+        }
         return result
     }
 }

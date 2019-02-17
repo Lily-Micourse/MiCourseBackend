@@ -9,7 +9,7 @@ import org.lily.micourse.entity.ResultMessage
 import org.lily.micourse.entity.course.CheckInFrequency
 import org.lily.micourse.entity.course.CommentVotingType
 import org.lily.micourse.entity.course.CoursePressure
-import org.lily.micourse.entity.course.Score
+import org.lily.micourse.entity.course.Grade
 import org.lily.micourse.po.course.CourseComment
 import org.lily.micourse.po.course.CourseFeedback
 import org.lily.micourse.po.course.CourseSubComment
@@ -130,7 +130,7 @@ class CourseCommentServiceImpl : CourseCommentService {
 
     }
 
-    override fun addFeedBack(userId: Int, courseId: Int, rate: Int, pressure: CoursePressure, score: Score,
+    override fun addFeedBack(userId: Int, courseId: Int, rate: Int, pressure: CoursePressure, grade: Grade,
                              examineMethods: Set<String>, checkInFrequency: CheckInFrequency, content: String?,
                              term: String): ResultMessage {
         val course = courseDAO.getCourseById(courseId).orElse(null)
@@ -145,7 +145,7 @@ class CourseCommentServiceImpl : CourseCommentService {
                 return resultMessage
         }
         val courseFeedback = CourseFeedback(course = course, user = user,
-                rate = rate, pressure = pressure, score = score, evalPaper =
+                rate = rate, pressure = pressure, grade = grade, evalPaper =
         examineMethods.contains("paper"), evalAttendance = examineMethods.contains("attendance"),
                 evalTeamWork =  examineMethods.contains("teamwork"), evalClosedBookExam =
         examineMethods.contains("closeBookExam"), evalOpenBookExam = examineMethods.contains("openBookExam"),

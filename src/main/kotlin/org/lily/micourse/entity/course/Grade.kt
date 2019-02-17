@@ -5,7 +5,7 @@ package org.lily.micourse.entity.course
  * Description:
  * @author iznauy
  */
-enum class Score {
+enum class Grade {
 
     A, B, C, D, E
 }
