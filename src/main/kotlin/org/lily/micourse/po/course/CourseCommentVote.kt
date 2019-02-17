@@ -15,8 +15,8 @@ data class CourseCommentVote (
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Int = -1,
 
-        val userId: Int = -1,
+        val userId: Int,
 
-        val commentId: Int = -1
+        val commentId: Int
 
 )

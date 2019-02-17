@@ -16,23 +16,19 @@ data class Course (
         @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Int = -1,
 
-        val courseIcon: String = "",
+        val courseIcon: String,
 
-        val courseCode: String = "",
+        val courseCode: String,
 
-        val courseName: String = "",
+        val courseName: String,
 
         val credit: Int,
 
-        val teacher: String = "",
+        val teacher: String,
 
-        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER)
-        @JoinColumn(name = "courseCategoryId")
-        val courseCategory: CourseCategory,
+        val courseCategory: String,
 
-        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER)
-        @JoinColumn(name = "courseDepartmentId")
-        val courseDepartment: CourseDepartment,
+        val courseDepartment: String,
 
         val description: String
 

@@ -1,4 +1,4 @@
-package org.lily.micourse.dao.course
+package org.lily.micourse.dao.deprecated.course
 
 import org.lily.micourse.po.course.Course
 import org.lily.micourse.po.course.CourseCategory

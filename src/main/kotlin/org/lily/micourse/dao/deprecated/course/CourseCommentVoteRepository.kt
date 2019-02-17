@@ -1,4 +1,4 @@
-package org.lily.micourse.dao.course
+package org.lily.micourse.dao.deprecated.course
 
 import org.lily.micourse.po.course.CourseCommentVote
 import org.springframework.data.jpa.repository.JpaRepository

@@ -3,7 +3,6 @@ package org.lily.micourse.po.course
 import org.lily.micourse.entity.course.CheckInFrequency
 import org.lily.micourse.entity.course.CoursePressure
 import org.lily.micourse.entity.course.Score
-import org.lily.micourse.po.user.User
 import javax.persistence.*
 
 /**
@@ -19,13 +18,9 @@ data class CourseFeedback(
         @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Int = -1,
 
-        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY) // 一般用不到课程的信息
-        @JoinColumn(name = "courseId")
-        val course: Course,
+        val courseId: Int,
 
-        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY) // 一般用不到用户信息
-        @JoinColumn(name = "userId")
-        val user: User,
+        val userId: Int,
 
         val rate: Int,
 
@@ -34,6 +29,9 @@ data class CourseFeedback(
 
         @Enumerated(value = EnumType.ORDINAL)
         val score: Score,
+
+        @Enumerated(value = EnumType.ORDINAL)
+        val checkInFrequency: CheckInFrequency,
 
         val evalPaper: Boolean,
 
@@ -45,10 +43,7 @@ data class CourseFeedback(
 
         val evalOpenBookExam: Boolean,
 
-        val evalOthers: Boolean,
-
-        @Enumerated(value = EnumType.ORDINAL)
-        val checkInFrequency: CheckInFrequency
+        val evalOthers: Boolean
 )
 
 

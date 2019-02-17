@@ -2,7 +2,7 @@ package org.lily.micourse.dao
 
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.lily.micourse.dao.course.CourseDepartmentRepository
+import org.lily.micourse.dao.deprecated.course.CourseDepartmentRepository
 import org.lily.micourse.po.course.CourseDepartment
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

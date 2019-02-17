@@ -5,8 +5,6 @@ package org.lily.micourse.services.course
  * Description:
  * @author iznauy
  */
-interface CourseInfoService {
-
-
+interface CourseDetailInfoService {
 
 }

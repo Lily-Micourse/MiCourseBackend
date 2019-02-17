@@ -15,5 +15,5 @@ data class CourseDepartment(
         @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Int = -1,
 
-        val name: String = ""
+        val name: String
 )

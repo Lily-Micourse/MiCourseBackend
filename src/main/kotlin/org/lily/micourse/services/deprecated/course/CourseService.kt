@@ -1,13 +1,11 @@
-package org.lily.micourse.services.course
+package org.lily.micourse.services.deprecated.course
 
-import org.lily.micourse.dao.course.CourseCategoryRepository
-import org.lily.micourse.dao.course.CourseDAO
-import org.lily.micourse.dao.course.CourseDepartmentRepository
-import org.lily.micourse.dao.course.CourseFeedbackRepository
-import org.lily.micourse.entity.course.Score
+import org.lily.micourse.dao.deprecated.course.CourseCategoryRepository
+import org.lily.micourse.dao.deprecated.course.CourseDAO
+import org.lily.micourse.dao.deprecated.course.CourseDepartmentRepository
+import org.lily.micourse.dao.deprecated.course.CourseFeedbackRepository
 import org.lily.micourse.po.course.Course
 import org.lily.micourse.po.course.CourseFeedback
-import org.lily.micourse.vo.course.CourseDetailVO
 import org.lily.micourse.vo.course.CourseVO
 import org.lily.micourse.vo.course.LabelListVO
 import org.springframework.beans.factory.annotation.Autowired

@@ -15,9 +15,7 @@ data class CourseTerm (
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Int,
 
-        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY)
-        @JoinColumn(name = "courseId")
-        val course: Course,
+        val courseId: Int,
 
         val term: String
 )

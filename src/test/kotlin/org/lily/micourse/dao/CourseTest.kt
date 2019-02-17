@@ -3,10 +3,10 @@ package org.lily.micourse.dao
 import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.lily.micourse.dao.course.CourseCategoryRepository
-import org.lily.micourse.dao.course.CourseDAO
-import org.lily.micourse.dao.course.CourseDepartmentRepository
-import org.lily.micourse.dao.course.CourseRepository
+import org.lily.micourse.dao.deprecated.course.CourseCategoryRepository
+import org.lily.micourse.dao.deprecated.course.CourseDAO
+import org.lily.micourse.dao.deprecated.course.CourseDepartmentRepository
+import org.lily.micourse.dao.deprecated.course.CourseRepository
 import org.lily.micourse.po.course.Course
 import org.lily.micourse.po.course.CourseCategory
 import org.lily.micourse.po.course.CourseDepartment

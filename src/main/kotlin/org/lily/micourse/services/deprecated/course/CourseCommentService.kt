@@ -1,4 +1,4 @@
-package org.lily.micourse.services.course
+package org.lily.micourse.services.deprecated.course
 
 import org.lily.micourse.entity.ResultMessage
 import org.lily.micourse.entity.course.CheckInFrequency

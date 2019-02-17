@@ -1,6 +1,6 @@
-package org.lily.micourse.services.course
+package org.lily.micourse.services.deprecated.course
 
-import org.lily.micourse.dao.course.*
+import org.lily.micourse.dao.deprecated.course.*
 import org.lily.micourse.entity.course.Score
 import org.lily.micourse.po.course.Course
 import org.lily.micourse.po.course.CourseFeedback

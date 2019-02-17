@@ -1,9 +1,9 @@
-package org.lily.micourse.services.course
+package org.lily.micourse.services.deprecated.course
 
-import org.lily.micourse.dao.course.CourseCommentDAO
-import org.lily.micourse.dao.course.CourseDAO
-import org.lily.micourse.dao.course.CourseFeedbackRepository
-import org.lily.micourse.dao.course.CourseVoteDao
+import org.lily.micourse.dao.deprecated.course.CourseCommentDAO
+import org.lily.micourse.dao.deprecated.course.CourseDAO
+import org.lily.micourse.dao.deprecated.course.CourseFeedbackRepository
+import org.lily.micourse.dao.deprecated.course.CourseVoteDao
 import org.lily.micourse.dao.user.UserRepository
 import org.lily.micourse.entity.ResultMessage
 import org.lily.micourse.entity.course.CheckInFrequency
@@ -11,10 +11,8 @@ import org.lily.micourse.entity.course.CommentVotingType
 import org.lily.micourse.entity.course.CoursePressure
 import org.lily.micourse.entity.course.Score
 import org.lily.micourse.po.course.CourseComment
-import org.lily.micourse.po.course.CourseCommentVote
 import org.lily.micourse.po.course.CourseFeedback
 import org.lily.micourse.po.course.CourseSubComment
-import org.lily.micourse.po.user.User
 import org.lily.micourse.vo.course.CourseCommentVO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

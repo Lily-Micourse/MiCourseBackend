@@ -1,18 +1,17 @@
-package org.lily.micourse.dao.course
+package org.lily.micourse.dao.course.impl
 
 import org.lily.micourse.po.course.CourseDepartment
-import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
-import org.springframework.stereotype.Repository
+import org.springframework.data.repository.CrudRepository
 
 /**
- * Created on 11/12/2018.
+ * Created on 17/02/2019.
  * Description:
  * @author iznauy
  */
-@Repository
-interface CourseDepartmentRepository: JpaRepository<CourseDepartment, Int> {
+interface CourseDepartmentRepository: CrudRepository<CourseDepartment, Int> {
 
     @Query("select c.name from course_department c", nativeQuery = true)
     fun getDepartmentNames(): List<String>
+
 }
