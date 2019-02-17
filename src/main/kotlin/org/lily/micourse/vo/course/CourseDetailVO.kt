@@ -22,8 +22,6 @@ data class CourseDetailVO (
 
         val type: String, // category
 
-        val hasFeedback: Boolean,
-
         val pressureIndexes: Map<String, Int>,
 
         val examineIndexes: Map<String, Int>,
@@ -36,9 +34,9 @@ data class CourseDetailVO (
 
 ) {
 
-    constructor(course: Course, rate: Double, hasFeedback: Boolean, pressureIndexes: Map<String, Int>, examineIndexes: Map<String, Int>,
+    constructor(course: Course, rate: Double, pressureIndexes: Map<String, Int>, examineIndexes: Map<String, Int>,
                 gradeIndexes: Map<String, Int>, checkInIndexes: Map<String, Int>)
         : this(course.id, course.courseName, rate, course.courseIcon, course.credit, course.courseCategory,
-            hasFeedback, pressureIndexes, examineIndexes, gradeIndexes, checkInIndexes, course.description)
+            pressureIndexes, examineIndexes, gradeIndexes, checkInIndexes, course.description)
 
 }
