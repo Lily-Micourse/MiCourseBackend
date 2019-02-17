@@ -29,5 +29,5 @@ data class CourseVO (
 ) {
     constructor(course: Course, courseRate: Double, commentNum: Int)
         :this(course.id, course.courseName, course.courseIcon, course.credit, courseRate, commentNum,
-            course.courseDepartment.name, course.courseCategory.name)
+            course.courseDepartment, course.courseCategory)
 }

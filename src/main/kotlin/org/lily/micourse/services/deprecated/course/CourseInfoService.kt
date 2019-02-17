@@ -1,4 +1,4 @@
-package org.lily.micourse.services.course
+package org.lily.micourse.services.deprecated.course
 
 import org.lily.micourse.vo.course.CourseDetailVO
 import org.lily.micourse.vo.course.CourseVO

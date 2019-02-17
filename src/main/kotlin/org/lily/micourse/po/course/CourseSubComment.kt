@@ -28,9 +28,7 @@ data class CourseSubComment (
 
         var deleted: Boolean = false,
 
-        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER) // 一般取出评论的话，需要获取用户什么的头像，最好还是取出用户
-        @JoinColumn(name = "userId")
-        val user: User,
+        val userId: Int,
 
         val content: String,
 

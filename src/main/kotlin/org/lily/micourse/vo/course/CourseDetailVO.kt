@@ -38,7 +38,7 @@ data class CourseDetailVO (
 
     constructor(course: Course, rate: Double, hasFeedback: Boolean, pressureIndexes: Map<String, Int>, examineIndexes: Map<String, Int>,
                 gradeIndexes: Map<String, Int>, checkInIndexes: Map<String, Int>)
-        : this(course.id, course.courseName, rate, course.courseIcon, course.credit, course.courseCategory.name,
+        : this(course.id, course.courseName, rate, course.courseIcon, course.credit, course.courseCategory,
             hasFeedback, pressureIndexes, examineIndexes, gradeIndexes, checkInIndexes, course.description)
 
 }

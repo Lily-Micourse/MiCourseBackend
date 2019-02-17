@@ -20,13 +20,9 @@ data class CourseComment (
         @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Int = -1,
 
-        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY) // 一般用不到课程的信息
-        @JoinColumn(name = "courseId")
-        val course: Course,
+        val courseId: Int,
 
-        @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER) // 一般取出评论的话，需要获取用户什么的头像，最好还是取出用户
-        @JoinColumn(name = "userId")
-        val user: User,
+        val userId: Int,
 
         var deleted: Boolean = false,
 
